@@ -1,0 +1,34 @@
+<div class="reg">
+    <div class="rectangle" >
+      <div class="row">
+        <label for="" style="font-size: 30px;"> <b> Prijavite se </b> </label>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label for="" style="margin-left: 130px; font-size: 18px; margin-top: 40px;"> Email: </label>
+        </div>
+        <div class="col-2">
+          <input type="text" style="width: 150px; margin-left: 130px; margin-top: 38px;" [(ngModel)]="user.email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label for="" style="margin-left: 130px; font-size: 18px; margin-top: 20px;"> Password: </label>
+        </div>
+        <div class="col-2">
+          <input type="password" style="width: 150px; margin-left: 130px; margin-top: 18px;" [(ngModel)]="user.password">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <button class="btn btn-secondary" style="width: 120px; margin-left: 130px; margin-top: 50px;" (click)="loginUser()"> Prijavi se </button>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-dark" style="width: 120px; margin-left: 200px; margin-top: 50px;" (click)="backToHomePage()"> Nazad </button>
+        </div>
+      </div>
+      <div class="row">
+        <label for="" style="font-size: 20px; color: red; margin-top: 10px;" *ngIf="notFounded" > Korisnik nije pronadjen! </label>
+      </div>
+    </div> 
+  </div> 

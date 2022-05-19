@@ -1,0 +1,19 @@
+.rectangle{
+    padding-top: 20px;
+      width:600px;
+      height:320px;
+      background-color: rgba(0, 149, 255, 0.451);
+      position: relative;
+      text-align: center;
+      margin-left: 450px;
+      margin-top: 130px;
+}
+
+.reg {
+    padding-top: 40px;
+    width:1530px;
+    height:750px;
+    background-color: rgba(128, 150, 240, 0.278);
+    position: relative;
+    text-align: center;
+}

@@ -9,3 +9,4 @@ export class User {
     city: string;
     password: string;
 }
+
