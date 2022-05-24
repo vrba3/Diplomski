@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @CrossOrigin (origins = "http://localhost:4200")
@@ -16,6 +17,11 @@ public class UserController {
 
     @Autowired
     private UserService userService ;
+
+    @GetMapping("users/allUsers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK);
+    }
 
     @PostMapping("/users/login")
     public ResponseEntity<User> login(@RequestBody User user) {
@@ -25,5 +31,16 @@ public class UserController {
     @GetMapping("/users/getLoggedUser")
     public ResponseEntity<User> getLoggedUser(@RequestParam("email") String email) {
         return new ResponseEntity<User>(userService.getLoggedUser(email), HttpStatus.OK);
+    }
+
+    @PostMapping("/users/registerUser")
+    public ResponseEntity<String> saveUser(@RequestBody User user) {
+
+        if(!userService.saveUser(user)){
+            return new ResponseEntity<String>("user_exists",HttpStatus.NOT_ACCEPTABLE);
+        }
+        else{
+            return new ResponseEntity<String>("user_registered",HttpStatus.CREATED);
+        }
     }
 }

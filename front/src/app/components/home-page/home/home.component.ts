@@ -7,6 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   @Output() loginPage = new EventEmitter<string>();
+  @Output() registerPage = new EventEmitter<string>();
 
   constructor() { }
 
@@ -15,5 +16,9 @@ export class HomeComponent implements OnInit {
 
   goToLogin(): void{
     this.loginPage.emit();
+  }
+
+  goToRegister(): void {
+    this.registerPage.emit();
   }
 }

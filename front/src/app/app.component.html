@@ -1,3 +1,4 @@
-<app-home *ngIf="pageNumber === 0" (loginPage)="goToLoginPage()"> </app-home>
+<app-home *ngIf="pageNumber === 0" (loginPage)="goToLoginPage()" (registerPage)="goToRegisterPage()"> </app-home>
 <app-login-form *ngIf="pageNumber === 1" (homePage)="backToHomePage()" (loggedUserPage)="goToUsersPage()"> </app-login-form>
 <app-logged-user-page *ngIf="pageNumber === 2" (homePage)="backToHomePage()"></app-logged-user-page>
+<app-user-registration *ngIf="pageNumber === 3" (homePage)="backToHomePage()" (loggedUserPage)="goToUsersPage()"></app-user-registration>

@@ -37,4 +37,9 @@ export class AppComponent {
     this.changeNumber(2);
     sessionStorage.setItem("page",'2');
   }
+
+  goToRegisterPage(): void {
+    this.changeNumber(3);
+    sessionStorage.setItem("page",'3');
+  }
 }

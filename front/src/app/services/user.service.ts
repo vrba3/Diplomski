@@ -9,10 +9,12 @@ import { Observable } from 'rxjs';
 export class UserService {
   private loginUserUrl: string;
   private getLoggedUserUrl: string;
+  private registerUserUrl: string;
 
   constructor(private http: HttpClient) {
     this.loginUserUrl = 'http://localhost:8080/users/login';
     this.getLoggedUserUrl = 'http://localhost:8080/users/getLoggedUser';
+    this.registerUserUrl = 'http://localhost:8080/users/registerUser';
   }
 
   public login(user: User): Observable<User> {
@@ -32,5 +34,9 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     let params = new HttpParams().set("email",sessionStorage.getItem('email'));
     return this.http.get<User>(this.getLoggedUserUrl, {headers: headers, params: params});
+  }
+
+  public registerUser(user: User): Observable<string> {
+    return this.http.post<string>(this.registerUserUrl, user, {responseType: 'text' as 'json'});
   }
 }
