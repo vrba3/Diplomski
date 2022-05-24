@@ -42,4 +42,9 @@ export class AppComponent {
     this.changeNumber(3);
     sessionStorage.setItem("page",'3');
   }
+
+  goToProfile(): void {
+    this.changeNumber(4);
+    sessionStorage.setItem("page",'4');
+  }
 }

@@ -43,4 +43,13 @@ public class UserController {
             return new ResponseEntity<String>("user_registered",HttpStatus.CREATED);
         }
     }
+
+    @PutMapping("/users/editUser")
+    public ResponseEntity<Boolean> editUser(@RequestBody User user, HttpServletRequest request) {
+        if (userService.editUser(user)) {
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }

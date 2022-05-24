@@ -1,0 +1,85 @@
+<div class="reg">
+    <div class="rectangle" >
+        <div class="container mt-5">
+            <form class="content" [formGroup]="editForm" (ngSubmit)="editUser()">
+                <h1 class="text-center"> Edit Profile</h1>
+                <div class="row">
+                    <div class="col-5">
+                        <input type="text" style="margin-left: 60px; margin-top: 20px;" formControlName="firstName" [(ngModel)]="user.firstName" class="form-control" placeholder="First Name"/>
+                        <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
+                            <label *ngIf="firstName.errors?.required" style="color: red; margin-left: 20px;">First Name is required</label>
+                            <label *ngIf="firstName.errors?.pattern" style="color: red; margin-left: 50px;">Only letters allowed. First letter must be capital.</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <input type="text" style="margin-left: 60px; margin-top: 20px;" formControlName="lastName" [(ngModel)]="user.lastName"  class="form-control" placeholder="Last Name"/>
+                        <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
+                            <label *ngIf="lastName.errors?.required" style="color: red; margin-left: 20px;">Last Name is required</label>
+                            <label *ngIf="lastName.errors?.pattern" style="color: red; margin-left: 50px;">Only letters allowed. First letter must be capital.</label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" style="margin-left: 60px; margin-top: 10px;" formControlName="email" [(ngModel)]="user.email"  class="form-control" placeholder="E-mail"/>
+                        <div *ngIf="email.invalid && (email.touched || email.dirty)">
+                            <label *ngIf="email.errors?.required" style="color: red; margin-right: 300px;">E-mail is required</label>
+                            <label *ngIf="email.errors?.email" style="color: red; margin-right: 250px;">Enter valid e-mail address</label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" style="margin-left: 60px; margin-top: 10px;" formControlName="mobileNumber" [(ngModel)]="user.mobileNumber"  class="form-control" placeholder="Mobile number"/>
+                        <div *ngIf="mobileNumber.invalid && (mobileNumber.touched || mobileNumber.dirty)">
+                            <label *ngIf="mobileNumber.errors?.required" style="color: red; margin-right: 240px;">Mobile number is required</label>
+                            <label *ngIf="mobileNumber.errors?.pattern" style="color: red; margin-right: 270px;">Only numbers allowed</label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" style="margin-left: 60px; margin-top: 10px;" formControlName="address" [(ngModel)]="user.address"  class="form-control" placeholder="Address"/>
+                        <div *ngIf="address.invalid && (address.touched || address.dirty)">
+                            <label *ngIf="address.errors?.required" style="color: red; margin-right: 290px;">Address is required</label>
+                            <label *ngIf="address.errors?.pattern" style="color: red; margin-right: 290px;">Enter valid address </label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" style="margin-left: 60px; margin-top: 10px;" formControlName="country" [(ngModel)]="user.country"  class="form-control" placeholder="Country"/>
+                        <div *ngIf="country.invalid && (country.touched || country.dirty)">
+                            <label *ngIf="country.errors?.required" style="color: red; margin-right: 290px;">Country is required</label>
+                            <label *ngIf="country.errors?.pattern" style="color: red; margin-right: 100px;">Only letters allowed. First letter must be capital.</label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" style="margin-left: 60px; margin-top: 10px;" formControlName="city" [(ngModel)]="user.city"  class="form-control" placeholder="City"/>
+                        <div *ngIf="city.invalid && (city.touched || city.dirty)">
+                            <label *ngIf="city.errors?.required" style="color: red; margin-right: 320px;">City is required</label>
+                            <label *ngIf="city.errors?.pattern" style="color: red; margin-right: 100px;">Only letters allowed. First letter must be capital.</label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <input type="password" style="margin-left: 60px; margin-top: 10px;" formControlName="password" [(ngModel)]="user.password"  class="form-control" placeholder="Password"/>
+                        <div *ngIf="password.invalid && (password.touched || password.dirty)">
+                            <label *ngIf="password.errors?.required" style="color: red; margin-right: 280px;">Password is required</label>
+                            <label *ngIf="password.errors?.pattern" style="color: red; margin-right: 190px;">Only letters and numbers allowed</label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <input type="password" style="margin-left: 60px; margin-top: 10px;" formControlName="secondPassword" [(ngModel)]="oldPass" class="form-control" placeholder="Repeat password"/>
+                        <div *ngIf="secondPassword.invalid && (secondPassword.touched || secondPassword.dirty)">
+                            <label *ngIf="secondPassword.errors?.required" style="color: red; margin-right: 280px;">Password is required</label>
+                            <label *ngIf="secondPassword.errors?.pattern" style="color: red; margin-right: 190px;" >Only letters and numbers allowed</label>
+                        </div>
+                        <div *ngIf="passwordTheSame === false">
+                            <label style="color: red; margin-right: 220px;">Passwords must be the same</label>
+                        </div>
+                    </div>
+                    <div >
+                        <label style="color: red; margin-right: 280px;" *ngIf="enableEditing === false" >Change data if you want to edit them</label>
+                    </div>
+                    <div class="col-10">
+                        <button class="btn btn-secondary" [disabled]="editForm.invalid" style="margin-top: 20px; margin-left: 50px; width: 120px;">Edit</button>
+                        <button class="btn btn-dark" (click)="backToHomePage()" style="margin-top: 20px; width: 120px; margin-left: 130px;">Back</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

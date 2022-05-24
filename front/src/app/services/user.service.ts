@@ -10,11 +10,13 @@ export class UserService {
   private loginUserUrl: string;
   private getLoggedUserUrl: string;
   private registerUserUrl: string;
+  private editUserUrl: string;
 
   constructor(private http: HttpClient) {
     this.loginUserUrl = 'http://localhost:8080/users/login';
     this.getLoggedUserUrl = 'http://localhost:8080/users/getLoggedUser';
     this.registerUserUrl = 'http://localhost:8080/users/registerUser';
+    this.editUserUrl = 'http://localhost:8080/users/editUser';
   }
 
   public login(user: User): Observable<User> {
@@ -38,5 +40,9 @@ export class UserService {
 
   public registerUser(user: User): Observable<string> {
     return this.http.post<string>(this.registerUserUrl, user, {responseType: 'text' as 'json'});
+  }
+
+  public editUser(user: User): Observable<boolean> {
+    return this.http.put<boolean>(this.editUserUrl, user);
   }
 }

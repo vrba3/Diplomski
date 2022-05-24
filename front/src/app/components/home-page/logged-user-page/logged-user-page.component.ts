@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoggedUserPageComponent implements OnInit {
   user: User = new User();
   @Output() homePage = new EventEmitter<string>();
+  @Output() profilePage = new EventEmitter<string>();
 
   constructor(private userService: UserService) { 
   }
@@ -25,4 +26,7 @@ export class LoggedUserPageComponent implements OnInit {
     this.homePage.emit();
   }
 
+  goToProfile(): void {
+    this.profilePage.emit();
+  }
 }

@@ -9,4 +9,5 @@ public interface UserService {
     public User getLoggedUser(String email);
     public Boolean saveUser(User user);
     public List<User> getAllUsers();
+    public Boolean editUser(User user);
 }

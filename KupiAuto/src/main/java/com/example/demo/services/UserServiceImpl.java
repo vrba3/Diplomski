@@ -48,4 +48,15 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
         return true;
     }
+
+    public Boolean editUser(User user) {
+        User foundUser = userRepository.findByEmail(user.getEmail());
+
+        if(foundUser != null) {
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

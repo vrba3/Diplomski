@@ -9,6 +9,7 @@ import { LoginFormComponent } from './components/home-page/login-form/login-form
 import { HomeComponent } from './components/home-page/home/home.component';
 import { LoggedUserPageComponent } from './components/home-page/logged-user-page/logged-user-page.component';
 import { UserRegistrationComponent } from './components/home-page/user-registration/user-registration.component';
+import { UserProfileComponent } from './components/home-page/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { UserRegistrationComponent } from './components/home-page/user-registrat
     LoginFormComponent,
     HomeComponent,
     LoggedUserPageComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
