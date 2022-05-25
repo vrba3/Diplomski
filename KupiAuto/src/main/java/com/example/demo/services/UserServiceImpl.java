@@ -59,4 +59,9 @@ public class UserServiceImpl implements UserService{
             return false;
         }
     }
+
+    public Boolean deleteUser(User user) {
+        userRepository.deleteById(user.getId());
+        return true;
+    }
 }

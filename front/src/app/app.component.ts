@@ -33,9 +33,14 @@ export class AppComponent {
     sessionStorage.setItem("page",'0');
   }
 
-  goToUsersPage(): void {
-    this.changeNumber(2);
-    sessionStorage.setItem("page",'2');
+  goToUsersPage(text: string): void {
+    if(text === 'administrator') {
+      this.changeNumber(5);
+      sessionStorage.setItem("page",'5');
+    } else if(text === 'user') {
+      this.changeNumber(2);
+      sessionStorage.setItem("page",'2');
+    }
   }
 
   goToRegisterPage(): void {
@@ -46,5 +51,10 @@ export class AppComponent {
   goToProfile(): void {
     this.changeNumber(4);
     sessionStorage.setItem("page",'4');
+  }
+
+  showRegisteredUsers(): void {
+    this.changeNumber(6);
+    sessionStorage.setItem("page",'6');
   }
 }

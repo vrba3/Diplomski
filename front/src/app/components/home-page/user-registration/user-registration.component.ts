@@ -68,7 +68,7 @@ export class UserRegistrationComponent implements OnInit {
       this.userService.registerUser(this.user).subscribe(ret => {
         this.userExists = false;
         this.userService.setEmail(this.user.email);
-        this.loggedUserPage.emit();
+        this.loggedUserPage.emit('user');
       }, error => {
         this.userExists = true;
       })

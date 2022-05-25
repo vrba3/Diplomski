@@ -1,0 +1,43 @@
+<div class="toolbar" role="banner" style=" background-color: lightgray;">
+    <div class="row">
+        <div class="col-4">    
+            <img width="80" src="favicon.ico" style="margin-left: 80px;"/>
+            <span style="font-size: 30px; "><b> Kupi Auto </b></span>
+        </div>
+        <div class="col-2">
+            <input type="image" (click)="goBackToAdminsProfile()" style="margin-left: 800px; width: 40; height: 40px; margin-top: 20px;" src="../../../assets/images/house.png" >
+        </div>
+    </div>  
+</div>
+<div style=" background-color: rgba(128, 150, 240, 0.278); height: 1080px;">
+    <label style="margin-left: 600px; font-size: 35px; margin-top: 50px;"> <b>Registrovani korisnici</b> </label>
+    <div class="container">
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr >
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Mobile number</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let user of allUsers;let indexOfelement=index;">
+                                <tr *ngIf="user.email !== 'vrbica.vlado11@gmail.com'">
+                                    <td scope="col">{{user.firstName}}</td>
+                                    <td scope="col">{{user.lastName}}</td>
+                                    <td scope="col">{{user.email}}</td>
+                                    <td scope="col">{{user.mobileNumber}}</td>
+                                    <td> <button class="btn btn-danger" (click)="deleteUser(indexOfelement)"> Delete user </button> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

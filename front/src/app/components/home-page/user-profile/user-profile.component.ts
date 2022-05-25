@@ -84,19 +84,19 @@ export class UserProfileComponent implements OnInit {
   }
 
   editUser() {
-    if(this.user.firstName == this.oldFirstName && this.user.lastName == this.oldSecondName && this.user.email == this.oldEmail 
-      && this.user.address == this.oldAddress && this.user.city == this.oldCity && this.user.country == this.oldCountry 
-      && this.user.password == this.oldPassword) {
-        this.enableEditing = false;
-        return;
-    } else
-      this.enableEditing = true;
-
     if(this.editForm.get('password').value === this.editForm.get('secondPassword').value) {
       this.passwordTheSame = true;
+      
+      if(!this.isEditingEnable())
+        return;
+        
       this.userService.editUser(this.user).subscribe(ret => {
-        if(ret)
-          this.homePage.emit();
+        if(ret) {
+          if(this.user.email === 'vrbica.vlado11@gmail.com')
+            this.homePage.emit('administrator');
+          else
+            this.homePage.emit('user');
+        }
       })
     }
     else{
@@ -104,7 +104,22 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  isEditingEnable(): Boolean {
+    if(this.user.firstName == this.oldFirstName && this.user.lastName == this.oldSecondName && this.user.email == this.oldEmail 
+      && this.user.address == this.oldAddress && this.user.city == this.oldCity && this.user.country == this.oldCountry 
+      && this.user.password == this.oldPassword) {
+        this.enableEditing = false;
+        return false;
+    } else{
+      this.enableEditing = true;
+      return true;
+    }
+  }
+
   backToHomePage() {
-    this.homePage.emit();
+    if(this.user.email === 'vrbica.vlado11@gmail.com')
+      this.homePage.emit('administrator');
+    else
+      this.homePage.emit('user');
   }
 }

@@ -7,16 +7,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
+  private getAllUsersUrl: string;
   private loginUserUrl: string;
   private getLoggedUserUrl: string;
   private registerUserUrl: string;
   private editUserUrl: string;
+  private deleteUserUrl: string;
 
   constructor(private http: HttpClient) {
     this.loginUserUrl = 'http://localhost:8080/users/login';
     this.getLoggedUserUrl = 'http://localhost:8080/users/getLoggedUser';
     this.registerUserUrl = 'http://localhost:8080/users/registerUser';
     this.editUserUrl = 'http://localhost:8080/users/editUser';
+    this.getAllUsersUrl = 'http://localhost:8080/users/allUsers';
+    this.deleteUserUrl = 'http://localhost:8080/users/deleteUser';
+  }
+
+  public getAllUsers(): Observable<Array<User>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.get<Array<User>>(this.getAllUsersUrl, {headers: headers});
   }
 
   public login(user: User): Observable<User> {
@@ -44,5 +55,9 @@ export class UserService {
 
   public editUser(user: User): Observable<boolean> {
     return this.http.put<boolean>(this.editUserUrl, user);
+  }
+
+  public deleteUser(user:User): Observable<boolean>{
+    return this.http.post<boolean>(this.deleteUserUrl,user);
   }
 }

@@ -10,4 +10,5 @@ public interface UserService {
     public Boolean saveUser(User user);
     public List<User> getAllUsers();
     public Boolean editUser(User user);
+    public Boolean deleteUser(User user);
 }

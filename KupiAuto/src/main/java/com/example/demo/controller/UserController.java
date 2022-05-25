@@ -52,4 +52,9 @@ public class UserController {
             return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    @PostMapping("/users/deleteUser")
+    public ResponseEntity<Boolean> deleteUser(@RequestBody User user){
+        return new ResponseEntity<Boolean>(userService.deleteUser(user), HttpStatus.OK);
+    }
 }

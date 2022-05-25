@@ -32,7 +32,10 @@ export class LoginFormComponent implements OnInit {
       if(result !== null) {
         this.notFounded = false;
         this.userService.setEmail(this.user.email);
-        this.loggedUserPage.emit();
+        if(this.user.email === 'vrbica.vlado11@gmail.com')
+          this.loggedUserPage.emit('administrator');
+        else
+          this.loggedUserPage.emit('user');
         return;
       }
       else

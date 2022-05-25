@@ -3,20 +3,19 @@ import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-logged-user-page',
-  templateUrl: './logged-user-page.component.html',
-  styleUrls: ['./logged-user-page.component.css']
+  selector: 'app-administrator-page',
+  templateUrl: './administrator-page.component.html',
+  styleUrls: ['./administrator-page.component.css']
 })
-export class LoggedUserPageComponent implements OnInit {
+export class AdministratorPageComponent implements OnInit {
   user: User = new User();
   @Output() homePage = new EventEmitter<string>();
   @Output() profilePage = new EventEmitter<string>();
+  @Output() usersPage = new EventEmitter<string>();
 
-  constructor(private userService: UserService) { 
-  }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-
     this.userService.getLoggedUser().subscribe(ret => {
       this.user = ret;
     });
@@ -29,5 +28,9 @@ export class LoggedUserPageComponent implements OnInit {
 
   goToProfile(): void {
     this.profilePage.emit();
+  }
+
+  showRegisteredUsers(): void {
+    this.usersPage.emit();
   }
 }
