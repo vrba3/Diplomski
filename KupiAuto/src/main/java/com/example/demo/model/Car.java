@@ -13,27 +13,33 @@ public class Car {
     protected String brand;
     protected String model;
     protected int cubicCapacity;
+    protected int numOfKw;
     protected int price;
     protected int yearOfProduction;
     protected String fuel;
     protected int numOfKilometers;
     protected ArrayList<String> images;
     protected String transmission;
+    protected ArrayList<String> equipment;
+    protected String description;
     protected String ownersEmail;
 
     public Car() {}
 
-    public Car(long id, String brand, String model, int cubicCapacity, int price, int yearOfProduction, String fuel, int numOfKilometers, ArrayList<String> images, String transmission, String ownersEmail) {
+    public Car(long id, String brand, String model, int cubicCapacity, int numOfKw, int price, int yearOfProduction, String fuel, int numOfKilometers, ArrayList<String> images, String transmission, ArrayList<String> equipment, String description, String ownersEmail) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.cubicCapacity = cubicCapacity;
+        this.numOfKw = numOfKw;
         this.price = price;
         this.yearOfProduction = yearOfProduction;
         this.fuel = fuel;
         this.numOfKilometers = numOfKilometers;
         this.images = images;
         this.transmission = transmission;
+        this.equipment = equipment;
+        this.description = description;
         this.ownersEmail = ownersEmail;
     }
 
@@ -67,6 +73,14 @@ public class Car {
 
     public void setCubicCapacity(int cubicCapacity) {
         this.cubicCapacity = cubicCapacity;
+    }
+
+    public int getNumOfKw() {
+        return numOfKw;
+    }
+
+    public void setNumOfKw(int numOfKw) {
+        this.numOfKw = numOfKw;
     }
 
     public int getPrice() {
@@ -115,6 +129,22 @@ public class Car {
 
     public void setTransmission(String transmission) {
         this.transmission = transmission;
+    }
+
+    public ArrayList<String> getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(ArrayList<String> equipment) {
+        this.equipment = equipment;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getOwnersEmail() {

@@ -57,4 +57,9 @@ export class AppComponent {
     this.changeNumber(6);
     sessionStorage.setItem("page",'6');
   }
+
+  goToSearchedCarsPage(): void {
+    this.changeNumber(7);
+    sessionStorage.setItem("page",'7');
+  }
 }
