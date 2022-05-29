@@ -1,8 +1,9 @@
-<app-home *ngIf="pageNumber === 0" (loginPage)="goToLoginPage()" (registerPage)="goToRegisterPage()" (carsPage)="goToSearchedCarsPage()"> </app-home>
+<app-home *ngIf="pageNumber === 0" (loginPage)="goToLoginPage()" (registerPage)="goToRegisterPage()" (carsPage)="goToSearchedCarsPage($event)"> </app-home>
 <app-login-form *ngIf="pageNumber === 1" (homePage)="backToHomePage()" (loggedUserPage)="goToUsersPage($event)"> </app-login-form>
-<app-logged-user-page *ngIf="pageNumber === 2" (homePage)="backToHomePage()" (profilePage)="goToProfile()"></app-logged-user-page>
+<app-logged-user-page *ngIf="pageNumber === 2" (homePage)="backToHomePage()" (profilePage)="goToProfile()" (carsPage)="goToSearchedCarsPageForLoggedUsers($event)" (userHomePage)="goToUsersPage($event)"></app-logged-user-page>
 <app-user-registration *ngIf="pageNumber === 3" (homePage)="backToHomePage()" (loggedUserPage)="goToUsersPage($event)"></app-user-registration>
 <app-user-profile *ngIf="pageNumber === 4" (homePage)="goToUsersPage($event)"></app-user-profile>
-<app-administrator-page *ngIf="pageNumber === 5" (homePage)="backToHomePage()" (profilePage)="goToProfile()" (usersPage)="showRegisteredUsers()"></app-administrator-page>
+<app-administrator-page *ngIf="pageNumber === 5" (homePage)="backToHomePage()" (profilePage)="goToProfile()" (usersPage)="showRegisteredUsers()" (carsPage)="goToSearchedCarsPageForLoggedUsers($event)"></app-administrator-page>
 <app-all-registered-users *ngIf="pageNumber === 6" (adminsPage)="goToUsersPage($event)"></app-all-registered-users>
 <app-searched-cars-page *ngIf="pageNumber === 7" (homePage)="backToHomePage()"></app-searched-cars-page>
+<app-searched-cars-for-logged-users *ngIf="pageNumber === 8" (homePage)="goToUsersPage($event)"></app-searched-cars-for-logged-users>

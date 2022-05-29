@@ -1,0 +1,46 @@
+<div class="toolbar" role="banner" style=" background-color: lightgray;">
+  <div class="row">
+      <div class="col-4">    
+          <img width="80" src="favicon.ico" style="margin-left: 80px;"/>
+          <span style="font-size: 30px; "><b> Kupi Auto </b></span>
+      </div>
+      <div class="col-2">
+          <input type="image" (click)="goBackToHomePage()" style="margin-left: 800px; width: 40; height: 40px; margin-top: 20px;" src="../../../assets/images/house.png" >
+      </div>
+  </div>  
+</div>
+<div style="background-color: rgba(128, 150, 240, 0.278);">
+  <div class="container" *ngIf="showedCars.length !== 0">
+      <div class="row">
+          <div class="col-12">
+              <div class="card" style="margin-top: 60px;">
+                  <div class="table-responsive">
+                      <table class="table">
+                          <thead class="thead-light">
+                              <tr >
+                                  <th scope="col">Image</th>
+                                  <th scope="col">Brand and model</th>
+                                  <th scope="col">Year of production</th>
+                                  <th scope="col">Price</th>
+                              </tr>
+                          </thead>
+                          <tbody *ngFor="let car of showedCars;let indexOfelement=index;">
+                              <tr>
+                                  <td scope="col"><img *ngIf="car?.images != null" style="width:120px;height:80px;"  [src]="('../../../assets/images/' + car.model.toLowerCase() + '/' + car?.images[0] +'.jpg')" alt="."><img *ngIf="car?.images == null" style="width:120px;height:80px;"  src="../../../assets/images/undefined.jpg" alt="."></td>
+                                  <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.brand}} {{car.model}}</td>
+                                  <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.yearOfProduction}}</td>
+                                  <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.price}}€</td>
+                                  <td style="vertical-align: middle; "> <button class="btn btn-secondary" (click)="openCarProfile(indexOfelement)" > Open </button> </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="showedCars.length === 0">
+      <label style="font-size: 25px; margin-left: 600px; margin-top: 70px;"> Nema pronadjenih rezultata!</label>
+  </div>
+  <div class="row" style="margin-top: 180px;"></div>
+</div>

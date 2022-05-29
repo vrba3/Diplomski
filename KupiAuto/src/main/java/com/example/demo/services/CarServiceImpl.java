@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -34,66 +35,228 @@ public class CarServiceImpl implements CarService{
             c.setImages(images);
             carRepository.save(c);
         }
-//        Car c1 = carRepository.findById(1L).get();
-//        c1.setImages(images);
-//        Car c2 = carRepository.findById(2L).get();
-//        c2.setImages(images);
-//        Car c3 = carRepository.findById(3L).get();
-//        c3.setImages(images);
-//        Car c4 = carRepository.findById(4L).get();
-//        c4.setImages(images);
-//        Car c5 = carRepository.findById(5L).get();
-//        c5.setImages(images);
-//        Car c6 = carRepository.findById(6L).get();
-//        c6.setImages(images);
-//        Car c7 = carRepository.findById(7L).get();
-//        c7.setImages(images);
-//        Car c8 = carRepository.findById(8L).get();
-//        c8.setImages(images);
-//        Car c9 = carRepository.getById(9L);
-//        c9.setImages(images);
-//        Car c10 = carRepository.getById(10L);
-//        c10.setImages(images);
-//        Car c11 = carRepository.getById(11L);
-//        c11.setImages(images);
-//        Car c12 = carRepository.getById(12L);
-//        c12.setImages(images);
-//        Car c13 = carRepository.getById(13L);
-//        c13.setImages(images);
-//        Car c14 = carRepository.getById(14L);
-//        c14.setImages(images);
-//        Car c15 = carRepository.getById(15L);
-//        c15.setImages(images);
-//        Car c16 = carRepository.getById(16L);
-//        c16.setImages(images);
-//        Car c17 = carRepository.getById(17L);
-//        c17.setImages(images);
-//        Car c18 = carRepository.getById(18L);
-//        c18.setImages(images);
-//        Car c19 = carRepository.getById(19L);
-//        c19.setImages(images);
-//        Car c20 = carRepository.getById(20L);
-//        c20.setImages(images);
-//
-//        carRepository.save(c1);
-//        carRepository.save(c2);
-//        carRepository.save(c3);
-//        carRepository.save(c4);
-//        carRepository.save(c5);
-//        carRepository.save(c6);
-//        carRepository.save(c7);
-//        carRepository.save(c8);
-//        carRepository.save(c9);
-//        carRepository.save(c10);
-//        carRepository.save(c11);
-//        carRepository.save(c12);
-//        carRepository.save(c13);
-//        carRepository.save(c14);
-//        carRepository.save(c15);
-//        carRepository.save(c16);
-//        carRepository.save(c17);
-//        carRepository.save(c18);
-//        carRepository.save(c19);
-//        carRepository.save(c20);
+    }
+
+    public List<Car> getSearchedCars(String text) {
+        List<Car> allCars = getAllCars();
+        List<Car> retCars = new ArrayList<>();
+
+        String brand = text.split(",")[0];
+        String model = text.split(",")[1];
+        int price = Integer.parseInt(text.split(",")[2]);
+        int startCubic = Integer.parseInt(text.split(",")[3]);
+        int endCubic = Integer.parseInt(text.split(",")[4]);
+        String startKw = text.split(",")[5];
+        String endKw = text.split(",")[6];
+        String fuel = text.split(",")[7];
+        int startKm = Integer.parseInt(text.split(",")[8]);
+        int endKm = Integer.parseInt(text.split(",")[9]);
+        String startYear = text.split(",")[10];
+        String endYear = text.split(",")[11];
+        String transmission = text.split(",")[12];
+
+        retCars = checkBrand(retCars, allCars, brand);
+        retCars = checkModel(retCars, model);
+        retCars = checkPrice(retCars, price);
+        retCars = checkCubic(retCars, startCubic, endCubic);
+        retCars = checkKw(retCars, startKw, endKw);
+        retCars = checkFuel(retCars, fuel);
+        retCars = checkKm(retCars, startKm, endKm);
+        retCars = checkYear(retCars, startYear, endYear);
+        retCars = checkTransmission(retCars, transmission);
+
+        return retCars;
+    }
+
+    private List<Car> checkBrand(List<Car> retCars, List<Car> allCars, String brand) {
+        if (brand.equals("-")) {
+            for (Car c : allCars) {
+                retCars.add(c);
+            }
+        } else {
+            for (Car c : allCars) {
+                if(c.getBrand().toLowerCase().equals(brand.toLowerCase()))
+                    retCars.add(c);
+            }
+        }
+
+        return retCars;
+    }
+
+    private List<Car> checkModel(List<Car> retCars, String model) {
+        if(!model.equals("-")) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (!car.getModel().toLowerCase().equals(model.toLowerCase()))
+                    it.remove();
+            }
+        }
+
+        return retCars;
+    }
+
+    private List<Car> checkPrice(List<Car> retCars, int price) {
+        if(price != 0) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getPrice() > price)
+                    it.remove();
+            }
+        }
+
+        return retCars;
+    }
+
+    private List<Car> checkCubic(List<Car> retCars, int startCubic, int endCubic) {
+        if(startCubic != 0 && endCubic == 0) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getCubicCapacity() < startCubic)
+                    it.remove();
+            }
+        } else if(startCubic == 0 && endCubic != 0) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getCubicCapacity() > endCubic)
+                    it.remove();
+            }
+        } else if(startCubic != 0 && endCubic != 0) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getCubicCapacity() < startCubic || car.getCubicCapacity() > endCubic)
+                    it.remove();
+            }
+        }
+
+        return retCars;
+    }
+
+    private List<Car> checkKw(List<Car> retCars, String startKw, String endKw) {
+        if(!startKw.equals("-") && endKw.equals("-")) {
+            int startKillowats = getKillowats(startKw);
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getNumOfKw() < startKillowats)
+                    it.remove();
+            }
+        } else if(startKw.equals("-") && !endKw.equals("-")) {
+            int endKillowats = getKillowats(endKw);
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getNumOfKw() > endKillowats)
+                    it.remove();
+            }
+        } else if(!startKw.equals("-") && !endKw.equals("-")) {
+            int startKillowats = getKillowats(startKw);
+            int endKillowats = getKillowats(endKw);
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getNumOfKw() < startKillowats || car.getNumOfKw() > endKillowats)
+                    it.remove();
+            }
+        }
+
+        return retCars;
+    }
+
+    private int getKillowats(String kw) {
+        if(kw.length() == 4)
+            return Integer.parseInt(kw.substring(0, 2));
+        else if(kw.length() == 5)
+            return Integer.parseInt(kw.substring(0, 3));
+
+        return 0;
+    }
+
+    private List<Car> checkFuel(List<Car> retCars, String fuel) {
+        if(!fuel.equals("-")) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (!car.getFuel().toLowerCase().equals(fuel.toLowerCase()))
+                    it.remove();
+            }
+        }
+
+        return retCars;
+    }
+
+    private List<Car> checkKm(List<Car> retCars, int startKm, int endKm) {
+        if(startKm != 0 && endKm == 0) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getNumOfKilometers() < startKm)
+                    it.remove();
+            }
+        } else if(startKm == 0 && endKm != 0) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getNumOfKilometers() > endKm)
+                    it.remove();
+            }
+        } else if(startKm != 0 && endKm != 0) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getNumOfKilometers() < startKm || car.getNumOfKilometers() > endKm)
+                    it.remove();
+            }
+        }
+
+        return retCars;
+    }
+
+    private List<Car> checkYear(List<Car> retCars, String startYear, String endYear) {
+        if(!startYear.equals("-") && endYear.equals("-")) {
+            int startY = Integer.parseInt(startYear);
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getYearOfProduction() < startY)
+                    it.remove();
+            }
+        } else if(startYear.equals("-") && !endYear.equals("-")) {
+            int endY = Integer.parseInt(endYear);
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getYearOfProduction() > endY)
+                    it.remove();
+            }
+        } else if(!startYear.equals("-") && !endYear.equals("-")) {
+            int startY = Integer.parseInt(startYear);
+            int endY = Integer.parseInt(endYear);
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (car.getYearOfProduction() < startY || car.getYearOfProduction() > endY)
+                    it.remove();
+            }
+        }
+
+        return retCars;
+    }
+
+    private List<Car> checkTransmission(List<Car> retCars, String transmission) {
+        if(!transmission.equals("-")) {
+            Iterator<Car> it = retCars.iterator();
+            while(it.hasNext()) {
+                Car car = it.next();
+                if (!car.getTransmission().toLowerCase().equals(transmission.toLowerCase()))
+                    it.remove();
+            }
+        }
+
+        return retCars;
     }
 }

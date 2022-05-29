@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -22,5 +24,10 @@ public class CarController {
     @GetMapping("cars/allCars")
     public ResponseEntity<List<Car>> getAllCars() {
         return new ResponseEntity<List<Car>>(carService.getAllCars(), HttpStatus.OK);
+    }
+
+    @GetMapping("cars/searchedCars")
+    public ResponseEntity<List<Car>> getSearchedCars(@RequestParam("text") String text) {
+        return new ResponseEntity<List<Car>>(carService.getSearchedCars(text), HttpStatus.OK);
     }
 }

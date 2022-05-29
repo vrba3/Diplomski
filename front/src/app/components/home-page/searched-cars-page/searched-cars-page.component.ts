@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Car } from 'src/app/model/car';
 import { CarService } from 'src/app/services/car.service';
 
 @Component({
@@ -8,15 +9,17 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class SearchedCarsPageComponent implements OnInit {
   allCars: any;
-  
+  showedCars: Array<Car> = new Array<Car>();
+
   @Output() homePage = new EventEmitter<string>();
 
   constructor(private carService: CarService) { }
 
   ngOnInit(): void {
-    this.carService.getAllCars().subscribe(ret => {
-      this.allCars = ret;
+    this.carService.getSearchedCars(sessionStorage.getItem('search')).subscribe(ret => {
+      this.showedCars = ret;
     })
+    
   }
 
   goBackToHomePage() {
@@ -24,6 +27,7 @@ export class SearchedCarsPageComponent implements OnInit {
   }
 
   openCarProfile(text: number) {
-    alert(text)
+    
+    
   }
 }

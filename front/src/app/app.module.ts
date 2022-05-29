@@ -13,6 +13,7 @@ import { UserProfileComponent } from './components/home-page/user-profile/user-p
 import { AdministratorPageComponent } from './components/home-page/administrator-page/administrator-page.component';
 import { AllRegisteredUsersComponent } from './components/home-page/all-registered-users/all-registered-users.component';
 import { SearchedCarsPageComponent } from './components/home-page/searched-cars-page/searched-cars-page.component';
+import { SearchedCarsForLoggedUsersComponent } from './components/home-page/searched-cars-for-logged-users/searched-cars-for-logged-users.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SearchedCarsPageComponent } from './components/home-page/searched-cars-
     UserProfileComponent,
     AdministratorPageComponent,
     AllRegisteredUsersComponent,
-    SearchedCarsPageComponent
+    SearchedCarsPageComponent,
+    SearchedCarsForLoggedUsersComponent
   ],
   imports: [
     BrowserModule,

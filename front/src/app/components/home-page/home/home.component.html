@@ -15,7 +15,7 @@
           <label for="" style="margin-left: 120px; margin-top: 40px;"> Izaberite marku: </label>
         </div>
         <div class="row">
-          <select name="cars" class="form-control" id="brand" style="margin-left: 130px; width: 130px;" (change)="changeCar()">
+          <select name="cars" class="form-control" id="brand" style="margin-left: 130px; width: 130px;" (change)="changeCar()" [(ngModel)]="selectedBrand">
             <option value=""> ... </option>
             <option value="audi"> Audi </option>
             <option value="bmw">BMW</option>
@@ -36,19 +36,19 @@
           <label for="" style="margin-left: 120px; margin-top: 20px;"> Kubikaža (od-do): </label>
         </div>
         <div class="row">
-          <input type="number" id="startCubic" class="form-control" name="price" min="800" max="8000" style="width: 130px; margin-left: 130px; height: 25px;">
+          <input type="number" id="startCubic" [(ngModel)]="selectedStartCubic" class="form-control" name="price" min="800" max="8000" style="width: 130px; margin-left: 130px; height: 25px;">
         </div>
         <div class="row">
-          <input type="number" id="endCubic" class="form-control" class="form-control" name="price" min="800" max="8000" style="width: 130px; margin-left: 130px; margin-top: 5px; height: 25px;">
+          <input type="number" id="endCubic" [(ngModel)]="selectedEndCubic" class="form-control" class="form-control" name="price" min="800" max="8000" style="width: 130px; margin-left: 130px; margin-top: 5px; height: 25px;">
         </div>
         <div class="row">
           <label for="" style="margin-left: 120px; margin-top: 46px;"> Kilometraža (od-do): </label>
         </div>
         <div class="row">
-          <input type="number" id="startKm" class="form-control" name="price" min="0" max="600000" style="width: 130px; margin-left: 130px; height: 25px;">
+          <input type="number" id="startKm" [(ngModel)]="selectedStartKm" class="form-control" name="price" min="0" max="600000" style="width: 130px; margin-left: 130px; height: 25px;">
         </div>
         <div class="row">
-          <input type="number" id="endKm" class="form-control" name="price" min="0" max="600000" style="width: 130px; margin-left: 130px; margin-top: 5px; height: 25px;">
+          <input type="number" id="endKm" [(ngModel)]="selectedEndKm" class="form-control" name="price" min="0" max="600000" style="width: 130px; margin-left: 130px; margin-top: 5px; height: 25px;">
         </div>
         <div class="row">
           <button class="btn btn-warning" style="width: 160px; margin-left: 130px; height: 70px; margin-top: 70px; font-size: 25px;" (click)="searchCars()"> <b> Pretraga </b> </button> 
@@ -59,7 +59,7 @@
           <label for="" style="margin-top: 40px; margin-left: 50px;"> Izaberite model: </label>
         </div>
         <div class="row">
-          <select name="cars" class="form-control" id="model" style="width: 130px; margin-left: 60px;" [(ngModel)]="models">
+          <select name="cars" class="form-control" id="model" style="width: 130px; margin-left: 60px;" [(ngModel)]="selectedModel">
             <option *ngFor="let model of models" [ngValue]="model">{{model}}</option>
           </select>
         </div>
@@ -67,7 +67,7 @@
           <label for="" style="margin-left: 50px; margin-top: 20px;"> Broj kilovata (od-do): </label>
         </div>
         <div class="row">
-          <select name="startKilowatts" class="form-control" id="startKilowatts" style="margin-left: 60px; width: 130px;">
+          <select name="startKilowatts" class="form-control" [(ngModel)]="selectedStartKw" id="startKilowatts" style="margin-left: 60px; width: 130px;">
             <option value=""> ... </option>
             <option value="25kW">25kW(34KS)</option>
             <option value="35kW">35kW(48KS)</option>
@@ -89,7 +89,7 @@
           </select>
         </div>
         <div class="row">
-          <select name="endKilowatts" class="form-control" id="endKilowatts" style="margin-left: 60px; width: 130px; margin-top: 5px;">
+          <select name="endKilowatts" [(ngModel)]="selectedEndKw" class="form-control" id="endKilowatts" style="margin-left: 60px; width: 130px; margin-top: 5px;">
             <option value=""> ... </option>
             <option value="25kW">25kW(34KS)</option>
             <option value="35kW">35kW(48KS)</option>
@@ -114,7 +114,7 @@
           <label for="" style="margin-left: 50px; margin-top: 20px;"> Godište (od-do): </label>
         </div>
         <div class="row">
-          <select class="form-control" name="startYear" id="startYear" style="margin-left: 60px; width: 130px; ">
+          <select class="form-control" name="startYear" [(ngModel)]="selectedStartYear" id="startYear" style="margin-left: 60px; width: 130px; ">
             <option value=""> ... </option>
             <option value="1990">1990</option>
             <option value="1991">1991</option>
@@ -152,7 +152,7 @@
           </select>
         </div>
         <div class="row">
-          <select name="endYear" class="form-control" id="endYear" style="margin-left: 60px; width: 130px; margin-top: 5px;">
+          <select name="endYear" class="form-control" [(ngModel)]="selectedEndYear" id="endYear" style="margin-left: 60px; width: 130px; margin-top: 5px;">
             <option value=""> ... </option>
             <option value="1990">1990</option>
             <option value="1991">1991</option>
@@ -195,16 +195,16 @@
           <label for="" style="margin-top: 40px;"> Cena do (u eurima): </label>
         </div>
         <div class="row">
-          <input type="number" class="form-control" id="price" name="price" min="100" max="200000" style="width: 130px; margin-left: 10px; height: 25px;">
+          <input type="number" [(ngModel)]="selectedPrice" class="form-control" id="price" name="price" min="100" max="200000" style="width: 130px; margin-left: 10px; height: 25px;">
         </div>
         <div class="row">
           <label for="" style=" margin-top: 33px;"> Vrsta goriva: </label>
         </div>
         <div class="row">
-          <select name="fuel" class="form-control" id="fuel" style="margin-left: 10px; width: 130px; ">
+          <select name="fuel" [(ngModel)]="selectedFuel" class="form-control" id="fuel" style="margin-left: 10px; width: 130px; ">
             <option value=""> ... </option>
             <option value="gasoline">Benzin</option>
-            <option value="gas">Gas</option>
+            <option value="tng">Gas</option>
             <option value="diesel">Dizel</option>
             <option value="hybrid">Hibridni pogon</option>
             <option value="electric">Električni pogon</option>
@@ -214,7 +214,7 @@
           <label for="" style="margin-top: 63px;"> Menjač: </label>
         </div>
         <div class="row">
-          <select name="transmission" class="form-control" id="transmission" style="width: 130px; margin-left: 10px;">
+          <select name="transmission" [(ngModel)]="selectedTransmission" class="form-control" id="transmission" style="width: 130px; margin-left: 10px;">
             <option value=""> ... </option>
             <option value="manual"> Manuelni </option>
             <option value="automatic">Automatski </option>

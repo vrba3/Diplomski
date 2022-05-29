@@ -7,6 +7,19 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   models: Array<String> = new Array<String>();
+  selectedBrand: string = '';
+  selectedModel: string = '';
+  selectedPrice: string = '';
+  selectedStartCubic: string = '';
+  selectedEndCubic: string = '';
+  selectedStartKw: string = '';
+  selectedEndKw: string = '';
+  selectedFuel: string = '';
+  selectedStartKm: string = '';
+  selectedEndKm: string = '';
+  selectedStartYear: string = '';
+  selectedEndYear: string = '';
+  selectedTransmission: string = '';
 
   @Output() loginPage = new EventEmitter<string>();
   @Output() registerPage = new EventEmitter<string>();
@@ -15,7 +28,8 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+    let model = document.getElementById('model') as HTMLSelectElement;
+    model.disabled = true;
   }
 
   goToLogin(): void{
@@ -27,15 +41,82 @@ export class HomeComponent implements OnInit {
   }
 
   searchCars(): void {
-    let brand = document.getElementById('model') as HTMLSelectElement;
-    let value = brand.value;
-    alert(value)
-    //this.carsPage.emit();
+    let text = ''
+    if(this.selectedBrand === '')
+      text = text + '-'
+    else
+      text = text + this.selectedBrand
+    
+    if(this.selectedModel === '...' || this.selectedModel === '')
+      text = text + ',-'
+    else
+      text = text + ',' + this.selectedModel
+    
+    if(this.selectedPrice !== '')
+      text = text + ',' + this.selectedPrice.toString()
+    else
+      text = text + ',0'
+    
+    if(this.selectedStartCubic !== '')
+      text = text + ',' + this.selectedStartCubic.toString()
+    else
+      text = text + ',0'
+
+    if(this.selectedEndCubic !== '')
+      text = text + ',' + this.selectedEndCubic.toString()
+    else
+      text = text + ',0'
+
+    if(this.selectedStartKw === '')
+      text = text + ',-'
+    else
+      text = text + ',' + this.selectedStartKw
+
+    if(this.selectedEndKw === '')
+      text = text + ',-'
+    else
+      text = text + ',' + this.selectedEndKw
+
+    if(this.selectedFuel === '')
+      text = text + ',-'
+    else
+      text = text + ',' + this.selectedFuel
+
+    if(this.selectedStartKm !== '')
+      text = text + ',' + this.selectedStartKm.toString()
+    else
+      text = text + ',0'
+
+    if(this.selectedEndKm !== '')
+      text = text + ',' + this.selectedEndKm.toString()
+    else
+      text = text + ',0'
+
+    if(this.selectedStartYear === '')
+      text = text + ',-'
+    else
+      text = text + ',' + this.selectedStartYear
+
+    if(this.selectedEndYear === '')
+      text = text + ',-'
+    else
+      text = text + ',' + this.selectedEndYear
+
+    if(this.selectedTransmission === '')
+      text = text + ',-'
+    else
+      text = text + ',' + this.selectedTransmission
+
+    
+    this.carsPage.emit(text);
   }
 
-  changeCar() {
+  changeCar() {  
     let brand = document.getElementById('brand') as HTMLSelectElement;
     let value = brand.value;
+    let model = document.getElementById('model') as HTMLSelectElement;
+    model.disabled = false;
+
     if(value === 'audi')
       this.setAudiModels();
     else if(value === 'bmw')
@@ -62,6 +143,11 @@ export class HomeComponent implements OnInit {
       this.setRenaultModels();
     else if(value === 'volkswagen')
       this.setVWModels();
+    else if(value === ''){
+      this.models = new Array<String>()
+      let model = document.getElementById('model') as HTMLSelectElement;
+      model.disabled = true;
+    }
   }
 
   setVWModels() {
