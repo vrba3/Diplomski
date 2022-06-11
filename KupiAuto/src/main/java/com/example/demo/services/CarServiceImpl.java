@@ -25,6 +25,17 @@ public class CarServiceImpl implements CarService{
         return allCarsList;
     }
 
+    public List<Car> getUserCars(String email) {
+        List<Car> cars = getAllCars();
+        List<Car> retCars = new ArrayList<>();
+        for(Car c: cars) {
+            if(c.getOwnersEmail().equals(email))
+                retCars.add(c);
+        }
+
+        return retCars;
+    }
+
     private void addEquipment() {
         for(long i=1; i<=20; i++){
             if(i % 3 == 0) {

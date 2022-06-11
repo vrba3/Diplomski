@@ -72,4 +72,20 @@ export class AppComponent {
     this.changeNumber(9);
     sessionStorage.setItem("page",'9');
   }
+
+  openCarProfileFromPosts() {
+    this.changeNumber(11);
+    sessionStorage.setItem("page",'11');
+  }
+
+  showUserPosts(): void {
+    this.changeNumber(10);
+    sessionStorage.setItem("page",'10');
+  }
+
+  backToPosts(): void {
+    this.changeNumber(10);
+    sessionStorage.setItem("page",'10');
+  }
+
  }

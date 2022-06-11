@@ -26,6 +26,11 @@ public class CarController {
         return new ResponseEntity<List<Car>>(carService.getAllCars(), HttpStatus.OK);
     }
 
+    @GetMapping("cars/userCars")
+    public ResponseEntity<List<Car>> getUserCars(@RequestParam("email") String email) {
+        return new ResponseEntity<List<Car>>(carService.getUserCars(email), HttpStatus.OK);
+    }
+
     @GetMapping("cars/searchedCars")
     public ResponseEntity<List<Car>> getSearchedCars(@RequestParam("text") String text) {
         return new ResponseEntity<List<Car>>(carService.getSearchedCars(text), HttpStatus.OK);

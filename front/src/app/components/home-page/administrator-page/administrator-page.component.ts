@@ -28,6 +28,7 @@ export class AdministratorPageComponent implements OnInit {
   @Output() profilePage = new EventEmitter<string>();
   @Output() usersPage = new EventEmitter<string>();
   @Output() carsPage = new EventEmitter<string>();
+  @Output() myCarsPage = new EventEmitter<string>();
 
   constructor(private userService: UserService) { }
 
@@ -43,6 +44,10 @@ export class AdministratorPageComponent implements OnInit {
   backToHome(): void {
     this.userService.removeEmail();
     this.homePage.emit();
+  }
+
+  showUserPosts(): void {
+    this.myCarsPage.emit();
   }
 
   goToProfile(): void {

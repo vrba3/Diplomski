@@ -28,6 +28,7 @@ export class LoggedUserPageComponent implements OnInit {
   @Output() profilePage = new EventEmitter<string>();
   @Output() carsPage = new EventEmitter<string>();
   @Output() userHomePage = new EventEmitter<string>();
+  @Output() myCarsPage = new EventEmitter<string>();
 
   constructor(private userService: UserService) { 
   }
@@ -45,6 +46,10 @@ export class LoggedUserPageComponent implements OnInit {
   logOut(): void {
     this.userService.removeEmail();
     this.homePage.emit();
+  }
+
+  showUserPosts(): void {
+    this.myCarsPage.emit();
   }
 
   goToProfile(): void {

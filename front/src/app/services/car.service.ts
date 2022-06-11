@@ -10,11 +10,13 @@ export class CarService {
   private getAllCarsUrl: string;
   private getSearchedCarsUrl: string;
   private getOpenedCarUrl: string;
+  private getUserCarsUrl: string;
 
   constructor(private http: HttpClient) {
     this.getAllCarsUrl = 'http://localhost:8080/cars/allCars'
     this.getSearchedCarsUrl = 'http://localhost:8080/cars/searchedCars'
     this.getOpenedCarUrl = 'http://localhost:8080/cars/openedCar'
+    this.getUserCarsUrl = 'http://localhost:8080/cars/userCars'
   }
 
   public getAllCars(): Observable<Array<Car>> {
@@ -22,6 +24,14 @@ export class CarService {
     headers.append('Content-Type', 'application/json');
 
     return this.http.get<Array<Car>>(this.getAllCarsUrl, {headers: headers});
+  }
+
+  public getUserCars(): Observable<Array<Car>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    let params = new HttpParams().set("email",sessionStorage.getItem('email'));
+
+    return this.http.get<Array<Car>>(this.getUserCarsUrl, {headers: headers, params: params});
   }
 
   public getSearchedCars(text: string): Observable<Array<Car>> {
@@ -36,6 +46,13 @@ export class CarService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     let params = new HttpParams().set("id",Number(sessionStorage.getItem('carId')));
+    return this.http.get<Car>(this.getOpenedCarUrl, {headers: headers, params: params});
+  }
+
+  public getOpenedCarFromPosts(): Observable<Car> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    let params = new HttpParams().set("id",Number(sessionStorage.getItem('userCarId')));
     return this.http.get<Car>(this.getOpenedCarUrl, {headers: headers, params: params});
   }
 }

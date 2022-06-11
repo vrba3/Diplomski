@@ -15,6 +15,8 @@ import { AllRegisteredUsersComponent } from './components/home-page/all-register
 import { SearchedCarsPageComponent } from './components/home-page/searched-cars-page/searched-cars-page.component';
 import { SearchedCarsForLoggedUsersComponent } from './components/home-page/searched-cars-for-logged-users/searched-cars-for-logged-users.component';
 import { CarProfileComponent } from './components/home-page/car-profile/car-profile.component';
+import { ShowUserPostsComponent } from './components/home-page/show-user-posts/show-user-posts.component';
+import { CarProfileByLoggedUserComponent } from './components/home-page/car-profile-by-logged-user/car-profile-by-logged-user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CarProfileComponent } from './components/home-page/car-profile/car-prof
     AllRegisteredUsersComponent,
     SearchedCarsPageComponent,
     SearchedCarsForLoggedUsersComponent,
-    CarProfileComponent
+    CarProfileComponent,
+    ShowUserPostsComponent,
+    CarProfileByLoggedUserComponent
   ],
   imports: [
     BrowserModule,

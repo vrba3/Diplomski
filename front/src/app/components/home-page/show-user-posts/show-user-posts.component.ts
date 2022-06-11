@@ -1,18 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Car } from 'src/app/model/car';
 import { User } from 'src/app/model/user';
 import { CarService } from 'src/app/services/car.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-searched-cars-for-logged-users',
-  templateUrl: './searched-cars-for-logged-users.component.html',
-  styleUrls: ['./searched-cars-for-logged-users.component.css']
+  selector: 'app-show-user-posts',
+  templateUrl: './show-user-posts.component.html',
+  styleUrls: ['./show-user-posts.component.css']
 })
-export class SearchedCarsForLoggedUsersComponent implements OnInit {
-  allCars: any;
-  showedCars: Array<Car> = new Array<Car>();
-  user: User = new User()
+export class ShowUserPostsComponent implements OnInit {
+  cars: any;
+  user: User;
 
   @Output() homePage = new EventEmitter<string>();
   @Output() carProfile = new EventEmitter<string>();
@@ -20,13 +18,14 @@ export class SearchedCarsForLoggedUsersComponent implements OnInit {
   constructor(private carService: CarService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.carService.getSearchedCars(sessionStorage.getItem('search')).subscribe(ret => {
-      this.showedCars = ret;
-    })
     this.userService.getLoggedUser().subscribe(ret => {
       this.user = ret;
     })
+    this.carService.getUserCars().subscribe(ret => {
+      this.cars = ret;
+    })
   }
+
 
   goBackToHomePage() {
     if(this.user.email === 'vrbica.vlado11@gmail.com')
@@ -36,7 +35,7 @@ export class SearchedCarsForLoggedUsersComponent implements OnInit {
   }
 
   openCarProfile(id: number) {
-    sessionStorage.setItem('carId', id.toString())
+    sessionStorage.setItem('userCarId', id.toString())
     this.carProfile.emit('');
   }
 }
