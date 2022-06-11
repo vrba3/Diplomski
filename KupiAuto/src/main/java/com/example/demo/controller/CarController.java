@@ -30,4 +30,9 @@ public class CarController {
     public ResponseEntity<List<Car>> getSearchedCars(@RequestParam("text") String text) {
         return new ResponseEntity<List<Car>>(carService.getSearchedCars(text), HttpStatus.OK);
     }
+
+    @GetMapping("cars/openedCar")
+    public ResponseEntity<Car> getOpenedCars(@RequestParam("id") long id) {
+        return new ResponseEntity<Car>(carService.getOpenedCar(id), HttpStatus.OK);
+    }
 }

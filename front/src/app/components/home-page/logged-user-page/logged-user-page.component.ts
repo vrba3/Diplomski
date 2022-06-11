@@ -118,8 +118,8 @@ export class LoggedUserPageComponent implements OnInit {
     else
       text = text + ',' + this.selectedTransmission
 
-    
-    this.carsPage.emit(text);
+    sessionStorage.setItem('search', text);
+    this.carsPage.emit();
   }
 
   changeCar() {  

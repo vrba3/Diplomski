@@ -13,4 +13,5 @@ export class Car {
     equipment: Array<String>;
     description: string;
     ownersEmail: string;
+    numOfChassis: string;
 }

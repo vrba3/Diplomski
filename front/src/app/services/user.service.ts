@@ -13,6 +13,7 @@ export class UserService {
   private registerUserUrl: string;
   private editUserUrl: string;
   private deleteUserUrl: string;
+  private getUserFromPostUrl: string;
 
   constructor(private http: HttpClient) {
     this.loginUserUrl = 'http://localhost:8080/users/login';
@@ -21,6 +22,7 @@ export class UserService {
     this.editUserUrl = 'http://localhost:8080/users/editUser';
     this.getAllUsersUrl = 'http://localhost:8080/users/allUsers';
     this.deleteUserUrl = 'http://localhost:8080/users/deleteUser';
+    this.getUserFromPostUrl = 'http://localhost:8080/users/userFromPost';
   }
 
   public getAllUsers(): Observable<Array<User>> {
@@ -47,6 +49,13 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     let params = new HttpParams().set("email",sessionStorage.getItem('email'));
     return this.http.get<User>(this.getLoggedUserUrl, {headers: headers, params: params});
+  }
+  
+  public getUserFromPost(email: string): Observable<User> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    let params = new HttpParams().set("email",email);
+    return this.http.get<User>(this.getUserFromPostUrl, {headers: headers, params: params});
   }
 
   public registerUser(user: User): Observable<string> {

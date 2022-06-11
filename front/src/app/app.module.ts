@@ -14,6 +14,7 @@ import { AdministratorPageComponent } from './components/home-page/administrator
 import { AllRegisteredUsersComponent } from './components/home-page/all-registered-users/all-registered-users.component';
 import { SearchedCarsPageComponent } from './components/home-page/searched-cars-page/searched-cars-page.component';
 import { SearchedCarsForLoggedUsersComponent } from './components/home-page/searched-cars-for-logged-users/searched-cars-for-logged-users.component';
+import { CarProfileComponent } from './components/home-page/car-profile/car-profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SearchedCarsForLoggedUsersComponent } from './components/home-page/sear
     AdministratorPageComponent,
     AllRegisteredUsersComponent,
     SearchedCarsPageComponent,
-    SearchedCarsForLoggedUsersComponent
+    SearchedCarsForLoggedUsersComponent,
+    CarProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -33,6 +33,11 @@ public class UserController {
         return new ResponseEntity<User>(userService.getLoggedUser(email), HttpStatus.OK);
     }
 
+    @GetMapping("/users/userFromPost")
+    public ResponseEntity<User> getUserFromPost(@RequestParam("email") String email) {
+        return new ResponseEntity<User>(userService.getLoggedUser(email), HttpStatus.OK);
+    }
+
     @PostMapping("/users/registerUser")
     public ResponseEntity<String> saveUser(@RequestBody User user) {
 

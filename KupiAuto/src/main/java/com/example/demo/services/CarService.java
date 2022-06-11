@@ -7,4 +7,5 @@ import java.util.List;
 public interface CarService {
     public List<Car> getAllCars();
     public List<Car> getSearchedCars(String text);
+    public Car getOpenedCar(long id);
 }

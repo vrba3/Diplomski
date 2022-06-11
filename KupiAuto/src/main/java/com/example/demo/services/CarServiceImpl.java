@@ -17,11 +17,66 @@ public class CarServiceImpl implements CarService{
 
     public List<Car> getAllCars() {
         addPictures();
+        addEquipment();
         Iterable<Car> allCars = carRepository.findAll();
         ArrayList<Car> allCarsList = new ArrayList<Car>();
         allCars.forEach(allCarsList::add);
 
         return allCarsList;
+    }
+
+    private void addEquipment() {
+        for(long i=1; i<=20; i++){
+            if(i % 3 == 0) {
+                ArrayList<String> equipment = new ArrayList<String>();
+                equipment.add("Metalik boja");
+                equipment.add("Tempomat");
+                equipment.add("Svetla za maglu");
+                equipment.add("Navigacija");
+                equipment.add("Električni retrovizori");
+                equipment.add("Kamera");
+                equipment.add("Bluetooth");
+                equipment.add("Krovni nosač");
+                equipment.add("MP3");
+                Car c = carRepository.findById(i).get();
+                c.setEquipment(equipment);
+                carRepository.save(c);
+            }
+            else if(i % 3 == 1) {
+                ArrayList<String> equipment = new ArrayList<String>();
+                equipment.add("Metalik boja");
+                equipment.add("Tempomat");
+                equipment.add("Svetla za maglu");
+                equipment.add("Krovni nosač");
+                equipment.add("Senzori za svetla");
+                equipment.add("Senzori za kišu");
+                equipment.add("Glasovne komande");
+                equipment.add("Otvor za skije");
+                equipment.add("Automatsko parkiranje");
+                Car c = carRepository.findById(i).get();
+                c.setEquipment(equipment);
+                carRepository.save(c);
+            }
+            else if(i % 3 == 2) {
+                ArrayList<String> equipment = new ArrayList<String>();
+                equipment.add("Metalik boja");
+                equipment.add("Tempomat");
+                equipment.add("Svetla za maglu");
+                equipment.add("Navigacija");
+                equipment.add("Električni podizači stakala");
+                equipment.add("Multimedija");
+                equipment.add("Kamera");
+                equipment.add("Krovni nosač");
+                equipment.add("MP3");
+                equipment.add("LED prednja svetla");
+                equipment.add("LED zadnja svetla");
+                equipment.add("DPF filter");
+                equipment.add("AUX konekcija");
+                Car c = carRepository.findById(i).get();
+                c.setEquipment(equipment);
+                carRepository.save(c);
+            }
+        }
     }
 
     private void addPictures() {
@@ -31,10 +86,18 @@ public class CarServiceImpl implements CarService{
         images.add("pic3");
         images.add("pic4");
         for(long i=1; i<=20; i++){
-            Car c = carRepository.findById(i).get();
-            c.setImages(images);
-            carRepository.save(c);
+            if(i != 13) {
+                Car c = carRepository.findById(i).get();
+                c.setImages(images);
+                carRepository.save(c);
+            }
         }
+    }
+
+    public Car getOpenedCar(long id) {
+        Car foundCar = carRepository.findById(id).get();
+
+        return foundCar;
     }
 
     public List<Car> getSearchedCars(String text) {

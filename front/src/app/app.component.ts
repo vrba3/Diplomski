@@ -58,15 +58,18 @@ export class AppComponent {
     sessionStorage.setItem("page",'6');
   }
 
-  goToSearchedCarsPage(text: string): void {
+  goToSearchedCarsPage(): void {
     this.changeNumber(7);
-    sessionStorage.setItem('search', text);
     sessionStorage.setItem("page",'7');
   }
 
-  goToSearchedCarsPageForLoggedUsers(text: string): void {
+  goToSearchedCarsPageForLoggedUsers(): void {
     this.changeNumber(8);
-    sessionStorage.setItem('search', text);
     sessionStorage.setItem("page",'8');
   }
-}
+
+  openCarProfile(id: string) {
+    this.changeNumber(9);
+    sessionStorage.setItem("page",'9');
+  }
+ }

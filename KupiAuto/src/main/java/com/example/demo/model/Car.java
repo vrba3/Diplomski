@@ -23,10 +23,11 @@ public class Car {
     protected ArrayList<String> equipment;
     protected String description;
     protected String ownersEmail;
+    protected String numOfChassis;
 
     public Car() {}
 
-    public Car(long id, String brand, String model, int cubicCapacity, int numOfKw, int price, int yearOfProduction, String fuel, int numOfKilometers, ArrayList<String> images, String transmission, ArrayList<String> equipment, String description, String ownersEmail) {
+    public Car(long id, String brand, String model, int cubicCapacity, int numOfKw, int price, int yearOfProduction, String fuel, int numOfKilometers, ArrayList<String> images, String transmission, ArrayList<String> equipment, String description, String ownersEmail, String numOfChassis) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -41,6 +42,7 @@ public class Car {
         this.equipment = equipment;
         this.description = description;
         this.ownersEmail = ownersEmail;
+        this.numOfChassis = numOfChassis;
     }
 
     public long getId() {
@@ -154,4 +156,8 @@ public class Car {
     public void setOwnersEmail(String ownersEmail) {
         this.ownersEmail = ownersEmail;
     }
+
+    public String getNumOfChassis() { return numOfChassis; }
+
+    public void setNumOfChassis(String numOfChassis) { this.numOfChassis = numOfChassis; }
 }

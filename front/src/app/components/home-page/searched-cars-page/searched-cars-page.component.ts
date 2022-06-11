@@ -12,12 +12,16 @@ export class SearchedCarsPageComponent implements OnInit {
   showedCars: Array<Car> = new Array<Car>();
 
   @Output() homePage = new EventEmitter<string>();
+  @Output() carProfile = new EventEmitter<string>();
 
   constructor(private carService: CarService) { }
 
   ngOnInit(): void {
     this.carService.getSearchedCars(sessionStorage.getItem('search')).subscribe(ret => {
       this.showedCars = ret;
+    })
+    this.carService.getAllCars().subscribe(ret => {
+      this.allCars = ret;
     })
     
   }
@@ -26,8 +30,8 @@ export class SearchedCarsPageComponent implements OnInit {
     this.homePage.emit();
   }
 
-  openCarProfile(text: number) {
-    
-    
+  openCarProfile(id: number) {
+    sessionStorage.setItem('carId', id.toString())
+    this.carProfile.emit('');
   }
 }
