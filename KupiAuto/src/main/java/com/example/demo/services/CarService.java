@@ -9,4 +9,5 @@ public interface CarService {
     public List<Car> getSearchedCars(String text);
     public Car getOpenedCar(long id);
     public List<Car> getUserCars(String email);
+    public Boolean deleteCar(Car car);
 }

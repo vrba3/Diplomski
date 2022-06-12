@@ -37,7 +37,8 @@ public class CarServiceImpl implements CarService{
     }
 
     private void addEquipment() {
-        for(long i=1; i<=20; i++){
+        List<Car> allCars = carRepository.findAll();
+        for(long i=1; i<=allCars.size(); i++){
             if(i % 3 == 0) {
                 ArrayList<String> equipment = new ArrayList<String>();
                 equipment.add("Metalik boja");
@@ -91,12 +92,13 @@ public class CarServiceImpl implements CarService{
     }
 
     private void addPictures() {
+        List<Car> allCars = carRepository.findAll();
         ArrayList<String> images = new ArrayList<String>();
         images.add("pic1");
         images.add("pic2");
         images.add("pic3");
         images.add("pic4");
-        for(long i=1; i<=20; i++){
+        for(long i=1; i<=allCars.size(); i++){
             if(i != 13) {
                 Car c = carRepository.findById(i).get();
                 c.setImages(images);
@@ -155,6 +157,11 @@ public class CarServiceImpl implements CarService{
         }
 
         return retCars;
+    }
+
+    public Boolean deleteCar(Car car) {
+        carRepository.deleteById(car.getId());
+        return true;
     }
 
     private List<Car> checkModel(List<Car> retCars, String model) {

@@ -11,12 +11,14 @@ export class CarService {
   private getSearchedCarsUrl: string;
   private getOpenedCarUrl: string;
   private getUserCarsUrl: string;
+  private deleteCarUrl: string;
 
   constructor(private http: HttpClient) {
     this.getAllCarsUrl = 'http://localhost:8080/cars/allCars'
     this.getSearchedCarsUrl = 'http://localhost:8080/cars/searchedCars'
     this.getOpenedCarUrl = 'http://localhost:8080/cars/openedCar'
     this.getUserCarsUrl = 'http://localhost:8080/cars/userCars'
+    this.deleteCarUrl = 'http://localhost:8080/cars/deleteCar'
   }
 
   public getAllCars(): Observable<Array<Car>> {
@@ -54,5 +56,9 @@ export class CarService {
     headers.append('Content-Type', 'application/json');
     let params = new HttpParams().set("id",Number(sessionStorage.getItem('userCarId')));
     return this.http.get<Car>(this.getOpenedCarUrl, {headers: headers, params: params});
+  }
+
+  public deleteCar(car:Car): Observable<boolean>{
+    return this.http.post<boolean>(this.deleteCarUrl,car);
   }
 }

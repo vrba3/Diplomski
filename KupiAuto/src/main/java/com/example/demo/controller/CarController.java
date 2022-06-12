@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +36,10 @@ public class CarController {
     @GetMapping("cars/openedCar")
     public ResponseEntity<Car> getOpenedCars(@RequestParam("id") long id) {
         return new ResponseEntity<Car>(carService.getOpenedCar(id), HttpStatus.OK);
+    }
+
+    @PostMapping("cars/deleteCar")
+    public ResponseEntity<Boolean> deleteCar(@RequestBody Car car){
+        return new ResponseEntity<Boolean>(carService.deleteCar(car), HttpStatus.OK);
     }
 }

@@ -38,4 +38,12 @@ export class ShowUserPostsComponent implements OnInit {
     sessionStorage.setItem('userCarId', id.toString())
     this.carProfile.emit('');
   }
+
+  deleteCar(index: number) {
+    let car = this.cars[index]
+    this.carService.deleteCar(car).subscribe(ret => {
+      if(ret)
+        this.cars.splice(index, 1);
+    })
+  }
 }
