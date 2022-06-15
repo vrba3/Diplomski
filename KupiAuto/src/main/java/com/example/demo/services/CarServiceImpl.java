@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.model.Car;
+import com.example.demo.model.User;
 import com.example.demo.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,55 +39,54 @@ public class CarServiceImpl implements CarService{
 
     private void addEquipment() {
         List<Car> allCars = carRepository.findAll();
-        for(long i=1; i<=allCars.size(); i++){
-            if(i % 3 == 0) {
-                ArrayList<String> equipment = new ArrayList<String>();
-                equipment.add("Metalik boja");
-                equipment.add("Tempomat");
-                equipment.add("Svetla za maglu");
-                equipment.add("Navigacija");
-                equipment.add("Električni retrovizori");
-                equipment.add("Kamera");
-                equipment.add("Bluetooth");
-                equipment.add("Krovni nosač");
-                equipment.add("MP3");
-                Car c = carRepository.findById(i).get();
-                c.setEquipment(equipment);
-                carRepository.save(c);
-            }
-            else if(i % 3 == 1) {
-                ArrayList<String> equipment = new ArrayList<String>();
-                equipment.add("Metalik boja");
-                equipment.add("Tempomat");
-                equipment.add("Svetla za maglu");
-                equipment.add("Krovni nosač");
-                equipment.add("Senzori za svetla");
-                equipment.add("Senzori za kišu");
-                equipment.add("Glasovne komande");
-                equipment.add("Otvor za skije");
-                equipment.add("Automatsko parkiranje");
-                Car c = carRepository.findById(i).get();
-                c.setEquipment(equipment);
-                carRepository.save(c);
-            }
-            else if(i % 3 == 2) {
-                ArrayList<String> equipment = new ArrayList<String>();
-                equipment.add("Metalik boja");
-                equipment.add("Tempomat");
-                equipment.add("Svetla za maglu");
-                equipment.add("Navigacija");
-                equipment.add("Električni podizači stakala");
-                equipment.add("Multimedija");
-                equipment.add("Kamera");
-                equipment.add("Krovni nosač");
-                equipment.add("MP3");
-                equipment.add("LED prednja svetla");
-                equipment.add("LED zadnja svetla");
-                equipment.add("DPF filter");
-                equipment.add("AUX konekcija");
-                Car c = carRepository.findById(i).get();
-                c.setEquipment(equipment);
-                carRepository.save(c);
+        int i=1;
+        for(Car car: allCars){
+            if(car.getEquipment() == null) {
+                if (i % 3 == 0) {
+                    ArrayList<String> equipment = new ArrayList<String>();
+                    equipment.add("Metalik boja");
+                    equipment.add("Tempomat");
+                    equipment.add("Svetla za maglu");
+                    equipment.add("Navigacija");
+                    equipment.add("Električni retrovizori");
+                    equipment.add("Kamera");
+                    equipment.add("Bluetooth");
+                    equipment.add("Krovni nosač");
+                    equipment.add("MP3");
+                    car.setEquipment(equipment);
+                    carRepository.save(car);
+                } else if (i % 3 == 1) {
+                    ArrayList<String> equipment = new ArrayList<String>();
+                    equipment.add("Metalik boja");
+                    equipment.add("Tempomat");
+                    equipment.add("Svetla za maglu");
+                    equipment.add("Krovni nosač");
+                    equipment.add("Senzori za svetla");
+                    equipment.add("Senzori za kišu");
+                    equipment.add("Glasovne komande");
+                    equipment.add("Otvor za skije");
+                    equipment.add("Automatsko parkiranje");
+                    car.setEquipment(equipment);
+                    carRepository.save(car);
+                } else if (i % 3 == 2) {
+                    ArrayList<String> equipment = new ArrayList<String>();
+                    equipment.add("Metalik boja");
+                    equipment.add("Tempomat");
+                    equipment.add("Svetla za maglu");
+                    equipment.add("Navigacija");
+                    equipment.add("Električni podizači stakala");
+                    equipment.add("Multimedija");
+                    equipment.add("Kamera");
+                    equipment.add("Krovni nosač");
+                    equipment.add("MP3");
+                    equipment.add("LED prednja svetla");
+                    equipment.add("LED zadnja svetla");
+                    equipment.add("DPF filter");
+                    equipment.add("AUX konekcija");
+                    car.setEquipment(equipment);
+                    carRepository.save(car);
+                }
+                i++;
             }
         }
     }
@@ -98,11 +98,12 @@ public class CarServiceImpl implements CarService{
         images.add("pic2");
         images.add("pic3");
         images.add("pic4");
-        for(long i=1; i<=allCars.size(); i++){
-            if(i != 13) {
-                Car c = carRepository.findById(i).get();
-                c.setImages(images);
-                carRepository.save(c);
+        for(Car car : allCars){
+            if(car.getImages() == null) {
+                if(car.getId() != 13) {
+                    car.setImages(images);
+                    carRepository.save(car);
+                }
             }
         }
     }
@@ -111,6 +112,17 @@ public class CarServiceImpl implements CarService{
         Car foundCar = carRepository.findById(id).get();
 
         return foundCar;
+    }
+
+    public Boolean editCar(Car car) {
+        Car foundCar = carRepository.findById(car.getId()).get();
+
+        if(foundCar != null) {
+            carRepository.save(car);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Car> getSearchedCars(String text) {

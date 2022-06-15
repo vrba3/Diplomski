@@ -3,10 +3,11 @@
 <app-logged-user-page *ngIf="pageNumber === 2" (homePage)="backToHomePage()" (myCarsPage)="showUserPosts()" (profilePage)="goToProfile()" (carsPage)="goToSearchedCarsPageForLoggedUsers()" (userHomePage)="goToUsersPage($event)"></app-logged-user-page>
 <app-user-registration *ngIf="pageNumber === 3" (homePage)="backToHomePage()" (loggedUserPage)="goToUsersPage($event)"></app-user-registration>
 <app-user-profile *ngIf="pageNumber === 4" (homePage)="goToUsersPage($event)"></app-user-profile>
-<app-administrator-page *ngIf="pageNumber === 5" (homePage)="backToHomePage()" (myCarsPage)="showUserPosts()" (profilePage)="goToProfile()" (usersPage)="showRegisteredUsers()" (carsPage)="goToSearchedCarsPageForLoggedUsers()"></app-administrator-page>
+<app-administrator-page *ngIf="pageNumber === 5" (homePage)="backToHomePage()" (myCarsPage)="showUserPosts()" (profilePage)="goToProfile()" (usersPage)="showRegisteredUsers()" (carsPage)="goToSearchedCarsPageForLoggedUsers()" (requestsPage)="goToRequestsPage()"></app-administrator-page>
 <app-all-registered-users *ngIf="pageNumber === 6" (adminsPage)="goToUsersPage($event)"></app-all-registered-users>
 <app-searched-cars-page *ngIf="pageNumber === 7" (homePage)="backToHomePage()" (carProfile)="openCarProfile($event)"></app-searched-cars-page>
 <app-searched-cars-for-logged-users *ngIf="pageNumber === 8" (homePage)="goToUsersPage($event)" (carProfile)="openCarProfile($event)"></app-searched-cars-for-logged-users>
 <app-car-profile *ngIf="pageNumber === 9" (searchedCarsPage)="goToSearchedCarsPage()"></app-car-profile>
 <app-show-user-posts *ngIf="pageNumber === 10" (homePage)="goToUsersPage($event)" (carProfile)="openCarProfileFromPosts()"></app-show-user-posts>
 <app-car-profile-by-logged-user *ngIf="pageNumber === 11" (userCarsPage)="backToPosts()"></app-car-profile-by-logged-user>
+<app-show-requests-for-new-posts *ngIf="pageNumber === 12" (adminsPage)="goToUsersPage($event)"></app-show-requests-for-new-posts>

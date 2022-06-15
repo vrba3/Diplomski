@@ -25,7 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody *ngFor="let car of cars;let indexOfelement=index;">
-                                <tr>
+                                <tr *ngIf="car.approved === true">
                                     <td scope="col"><img *ngIf="car?.images != null" style="width:120px;height:80px;"  [src]="('../../../assets/images/' + car.model.toLowerCase() + '/' + car?.images[0] +'.jpg')" alt="."><img *ngIf="car?.images == null" style="width:120px;height:80px;"  src="../../../assets/images/undefined.jpg" alt="."></td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.brand}} {{car.model}}</td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.yearOfProduction}}</td>

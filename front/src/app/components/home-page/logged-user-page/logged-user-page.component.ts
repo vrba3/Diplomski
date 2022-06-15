@@ -124,6 +124,7 @@ export class LoggedUserPageComponent implements OnInit {
       text = text + ',' + this.selectedTransmission
 
     sessionStorage.setItem('search', text);
+    
     this.carsPage.emit();
   }
 

@@ -24,10 +24,11 @@ public class Car {
     protected String description;
     protected String ownersEmail;
     protected String numOfChassis;
+    protected Boolean approved;
 
     public Car() {}
 
-    public Car(long id, String brand, String model, int cubicCapacity, int numOfKw, int price, int yearOfProduction, String fuel, int numOfKilometers, ArrayList<String> images, String transmission, ArrayList<String> equipment, String description, String ownersEmail, String numOfChassis) {
+    public Car(long id, String brand, String model, int cubicCapacity, int numOfKw, int price, int yearOfProduction, String fuel, int numOfKilometers, ArrayList<String> images, String transmission, ArrayList<String> equipment, String description, String ownersEmail, String numOfChassis, Boolean approved) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -43,6 +44,7 @@ public class Car {
         this.description = description;
         this.ownersEmail = ownersEmail;
         this.numOfChassis = numOfChassis;
+        this.approved = approved;
     }
 
     public long getId() {
@@ -160,4 +162,8 @@ public class Car {
     public String getNumOfChassis() { return numOfChassis; }
 
     public void setNumOfChassis(String numOfChassis) { this.numOfChassis = numOfChassis; }
+
+    public Boolean getApproved() { return approved; }
+
+    public void setApproved(Boolean approved) { this.approved = approved; }
 }

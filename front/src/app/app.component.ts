@@ -88,4 +88,9 @@ export class AppComponent {
     sessionStorage.setItem("page",'10');
   }
 
+  goToRequestsPage(): void {
+    this.changeNumber(12);
+    sessionStorage.setItem("page",'12');
+  }
+
  }

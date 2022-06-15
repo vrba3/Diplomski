@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -41,5 +42,14 @@ public class CarController {
     @PostMapping("cars/deleteCar")
     public ResponseEntity<Boolean> deleteCar(@RequestBody Car car){
         return new ResponseEntity<Boolean>(carService.deleteCar(car), HttpStatus.OK);
+    }
+
+    @PutMapping("/cars/editCar")
+    public ResponseEntity<Boolean> editCar(@RequestBody Car car, HttpServletRequest request) {
+        if (carService.editCar(car)) {
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
+        }
     }
 }

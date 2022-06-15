@@ -15,7 +15,26 @@
             <label style="font-size: 50px; margin-left: 200px; margin-top: 30px;"> <b> {{car.brand}} {{car.model}}, {{car.yearOfProduction}}. god </b> </label>
         </div>
         <div class="col-6">
-            <label style="font-size: 50px; margin-left: 400px; margin-top: 30px;"> <b> {{car.price}}€ </b> </label>
+            <div class="row">
+                <label style="font-size: 50px; margin-left: 400px; margin-top: 30px;"> <b> {{car.price}}€ </b> </label>
+            </div>
+            <div class="row">
+                <label style="color: red; margin-left: 375px;" *ngIf="showError"> You must to change price! </label>
+            </div>
+            <div class="row">
+                <input type="number" [(ngModel)]="helpPrice" *ngIf="changePressed === true" class="form-control" style="width: 207px; margin-left: 385px;">  
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-1">
+                    <button class="btn btn-warning" (click)="changePrice()" *ngIf="changePressed === true" style="width: 100px; margin-left: 375px;"> Change </button> 
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-danger" (click)="cancelPressed()" *ngIf="changePressed === true" style="width: 100px; margin-left: 415px;"> Cancel </button> 
+                </div>         
+            </div>
+            <div class="row">
+                <button class="btn btn-secondary" *ngIf="changePressed === false" style="width: 150px; margin-left: 415px;" (click)="changeButtonPressed()"> Change price </button>  
+            </div>
         </div>
     </div>
     <div class="row" style="margin-top: 50px;">

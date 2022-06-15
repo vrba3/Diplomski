@@ -14,6 +14,9 @@ export class CarProfileByLoggedUserComponent implements OnInit {
   carImg: String;
   numOfImg: number;
   user: User;
+  changePressed: Boolean = false;
+  helpPrice: number;
+  showError: Boolean = false;
 
   @Output() userCarsPage = new EventEmitter<string>();
 
@@ -23,10 +26,36 @@ export class CarProfileByLoggedUserComponent implements OnInit {
     this.numOfImg = 0;
     this.carService.getOpenedCarFromPosts().subscribe(ret => {
       this.car = ret;
+      this.helpPrice = this.car.price;
       this.userService.getUserFromPost(this.car.ownersEmail).subscribe(ret => {
         this.user = ret;
       })
     })
+  }
+
+  changeButtonPressed() {
+    this.changePressed = true;
+  }
+
+  changePrice() {
+    if(this.helpPrice === this.car.price){
+      this.showError = true
+      return;
+    }
+    this.showError = false
+    this.car.price = this.helpPrice
+    this.carService.editCar(this.car).subscribe(ret => {
+      if(ret) {
+        this.changePressed = false;
+        
+      }
+
+    })
+  }
+
+  cancelPressed() {
+    this.helpPrice = this.car.price;
+    this.changePressed = false;
   }
 
   backToUserCarsPage() {

@@ -18,7 +18,10 @@ export class SearchedCarsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.carService.getSearchedCars(sessionStorage.getItem('search')).subscribe(ret => {
-      this.showedCars = ret;
+      for(let car of ret) {
+        if(car.approved === true)
+          this.showedCars.push(car)
+      }
     })
     this.carService.getAllCars().subscribe(ret => {
       this.allCars = ret;

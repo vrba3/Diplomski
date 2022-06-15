@@ -29,6 +29,7 @@ export class AdministratorPageComponent implements OnInit {
   @Output() usersPage = new EventEmitter<string>();
   @Output() carsPage = new EventEmitter<string>();
   @Output() myCarsPage = new EventEmitter<string>();
+  @Output() requestsPage = new EventEmitter<string>();
 
   constructor(private userService: UserService) { }
 
@@ -39,6 +40,10 @@ export class AdministratorPageComponent implements OnInit {
 
     let model = document.getElementById('model') as HTMLSelectElement;
     model.disabled = true;
+  }
+
+  showCarRequests() {
+    this.requestsPage.emit();
   }
 
   backToHome(): void {
@@ -125,6 +130,7 @@ export class AdministratorPageComponent implements OnInit {
     else
       text = text + ',' + this.selectedTransmission
 
+    sessionStorage.setItem('search', text);
     
     this.carsPage.emit(text);
   }

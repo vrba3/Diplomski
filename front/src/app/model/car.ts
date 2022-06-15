@@ -14,4 +14,5 @@ export class Car {
     description: string;
     ownersEmail: string;
     numOfChassis: string;
+    approved: Boolean;
 }
