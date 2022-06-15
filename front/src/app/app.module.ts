@@ -18,6 +18,8 @@ import { CarProfileComponent } from './components/home-page/car-profile/car-prof
 import { ShowUserPostsComponent } from './components/home-page/show-user-posts/show-user-posts.component';
 import { CarProfileByLoggedUserComponent } from './components/home-page/car-profile-by-logged-user/car-profile-by-logged-user.component';
 import { ShowRequestsForNewPostsComponent } from './components/home-page/show-requests-for-new-posts/show-requests-for-new-posts.component';
+import { AddNewCarComponent } from './components/home-page/add-new-car/add-new-car.component';
+import { CarProfileBySearchedCarsFromLoggedUsersComponent } from './components/home-page/car-profile-by-searched-cars-from-logged-users/car-profile-by-searched-cars-from-logged-users.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ShowRequestsForNewPostsComponent } from './components/home-page/show-re
     CarProfileComponent,
     ShowUserPostsComponent,
     CarProfileByLoggedUserComponent,
-    ShowRequestsForNewPostsComponent
+    ShowRequestsForNewPostsComponent,
+    AddNewCarComponent,
+    CarProfileBySearchedCarsFromLoggedUsersComponent,
   ],
   imports: [
     BrowserModule,

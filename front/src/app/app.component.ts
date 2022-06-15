@@ -73,6 +73,11 @@ export class AppComponent {
     sessionStorage.setItem("page",'9');
   }
 
+  openCarProfileByLoggedUser(id: string) {
+    this.changeNumber(14);
+    sessionStorage.setItem("page",'14');
+  }
+
   openCarProfileFromPosts() {
     this.changeNumber(11);
     sessionStorage.setItem("page",'11');
@@ -91,6 +96,11 @@ export class AppComponent {
   goToRequestsPage(): void {
     this.changeNumber(12);
     sessionStorage.setItem("page",'12');
+  }
+
+  goToNewCarPage(): void {
+    this.changeNumber(13);
+    sessionStorage.setItem("page",'13');
   }
 
  }

@@ -1,136 +1,49 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/model/user';
+import { CarService } from 'src/app/services/car.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-logged-user-page',
-  templateUrl: './logged-user-page.component.html',
-  styleUrls: ['./logged-user-page.component.css']
+  selector: 'app-add-new-car',
+  templateUrl: './add-new-car.component.html',
+  styleUrls: ['./add-new-car.component.css']
 })
-export class LoggedUserPageComponent implements OnInit {
-  user: User = new User();
+export class AddNewCarComponent implements OnInit {
   models: Array<String> = new Array<String>();
+  user: User = new User()
   selectedBrand: string = '';
   selectedModel: string = '';
   selectedPrice: string = '';
-  selectedStartCubic: string = '';
-  selectedEndCubic: string = '';
-  selectedStartKw: string = '';
-  selectedEndKw: string = '';
+  selectedCubic: string = '';
+  selectedKw: string = '';
   selectedFuel: string = '';
-  selectedStartKm: string = '';
-  selectedEndKm: string = '';
-  selectedStartYear: string = '';
-  selectedEndYear: string = '';
+  selectedKm: string = '';
+  selectedYear: string = '';
   selectedTransmission: string = '';
+  insertedDescription: string = '';
+  images: Array<String> = new Array<String>();
 
   @Output() homePage = new EventEmitter<string>();
-  @Output() profilePage = new EventEmitter<string>();
-  @Output() carsPage = new EventEmitter<string>();
-  @Output() userHomePage = new EventEmitter<string>();
-  @Output() myCarsPage = new EventEmitter<string>();
-  @Output() addNewCarPage = new EventEmitter<string>();
 
-  constructor(private userService: UserService) { 
-  }
+  constructor(private carService: CarService, private userService: UserService) { }
 
   ngOnInit(): void {
-
     this.userService.getLoggedUser().subscribe(ret => {
       this.user = ret;
-    });
-
+    })
     let model = document.getElementById('model') as HTMLSelectElement;
     model.disabled = true;
   }
 
-  logOut(): void {
-    this.userService.removeEmail();
-    this.homePage.emit();
+  goBackToHomePage() {
+    if(this.user.email === 'vrbica.vlado11@gmail.com')
+      this.homePage.emit('administrator');
+    else
+      this.homePage.emit('user');
   }
 
-  addNewCar() {
-    this.addNewCarPage.emit();
-  }
-
-  showUserPosts(): void {
-    this.myCarsPage.emit();
-  }
-
-  goToProfile(): void {
-    this.profilePage.emit();
-  }
-
-  searchCars(): void {
-    let text = ''
-    if(this.selectedBrand === '')
-      text = text + '-'
-    else
-      text = text + this.selectedBrand
-    
-    if(this.selectedModel === '...' || this.selectedModel === '')
-      text = text + ',-'
-    else
-      text = text + ',' + this.selectedModel
-    
-    if(this.selectedPrice !== '')
-      text = text + ',' + this.selectedPrice.toString()
-    else
-      text = text + ',0'
-    
-    if(this.selectedStartCubic !== '')
-      text = text + ',' + this.selectedStartCubic.toString()
-    else
-      text = text + ',0'
-
-    if(this.selectedEndCubic !== '')
-      text = text + ',' + this.selectedEndCubic.toString()
-    else
-      text = text + ',0'
-
-    if(this.selectedStartKw === '')
-      text = text + ',-'
-    else
-      text = text + ',' + this.selectedStartKw
-
-    if(this.selectedEndKw === '')
-      text = text + ',-'
-    else
-      text = text + ',' + this.selectedEndKw
-
-    if(this.selectedFuel === '')
-      text = text + ',-'
-    else
-      text = text + ',' + this.selectedFuel
-
-    if(this.selectedStartKm !== '')
-      text = text + ',' + this.selectedStartKm.toString()
-    else
-      text = text + ',0'
-
-    if(this.selectedEndKm !== '')
-      text = text + ',' + this.selectedEndKm.toString()
-    else
-      text = text + ',0'
-
-    if(this.selectedStartYear === '')
-      text = text + ',-'
-    else
-      text = text + ',' + this.selectedStartYear
-
-    if(this.selectedEndYear === '')
-      text = text + ',-'
-    else
-      text = text + ',' + this.selectedEndYear
-
-    if(this.selectedTransmission === '')
-      text = text + ',-'
-    else
-      text = text + ',' + this.selectedTransmission
-
-    sessionStorage.setItem('search', text);
-    
-    this.carsPage.emit();
+  removePhoto(index: number) {
+    this.images.splice(index, 1);
   }
 
   changeCar() {  

@@ -30,6 +30,7 @@ export class AdministratorPageComponent implements OnInit {
   @Output() carsPage = new EventEmitter<string>();
   @Output() myCarsPage = new EventEmitter<string>();
   @Output() requestsPage = new EventEmitter<string>();
+  @Output() addNewCarPage = new EventEmitter<string>();
 
   constructor(private userService: UserService) { }
 
@@ -40,6 +41,10 @@ export class AdministratorPageComponent implements OnInit {
 
     let model = document.getElementById('model') as HTMLSelectElement;
     model.disabled = true;
+  }
+
+  addNewCar() {
+    this.addNewCarPage.emit();
   }
 
   showCarRequests() {

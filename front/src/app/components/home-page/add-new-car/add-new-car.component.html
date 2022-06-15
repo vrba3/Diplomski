@@ -1,0 +1,316 @@
+<div class="toolbar" role="banner" style=" background-color: lightgray;">
+    <div class="row">
+        <div class="col-4">    
+            <img width="80" src="favicon.ico" style="margin-left: 80px;"/>
+            <span style="font-size: 30px; "><b> Kupi Auto </b></span>
+        </div>
+        <div class="col-2">
+            <input type="image" (click)="goBackToHomePage()" style="margin-left: 800px; width: 40; height: 40px; margin-top: 20px;" src="../../../assets/images/house.png" >
+        </div>
+    </div>  
+</div>
+<div style="background-color: rgba(128, 150, 240, 0.278);">
+    <div class="row">
+        <label style="font-size: 50px;  margin-top: 30px; text-align: center;"> Dodaj auto </label>
+    </div>
+    <div style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-3" style="margin-left: 120px;">
+                <div class="row">
+                    <label style="margin-left: 120px; margin-top: 40px;"> Izaberite marku: </label>
+                </div>
+                <div class="row">
+                    <select name="cars" class="form-control" id="brand" style="margin-left: 130px; width: 130px;" (change)="changeCar()" [(ngModel)]="selectedBrand">
+                      <option value=""> ... </option>
+                      <option value="audi"> Audi </option>
+                      <option value="bmw">BMW</option>
+                      <option value="citroen">Citroen</option>
+                      <option value="dacia">Dacia</option>
+                      <option value="fiat">Fiat</option>
+                      <option value="ford">Ford</option>
+                      <option value="honda">Honda</option>
+                      <option value="hyundai">Hyundai</option>
+                      <option value="mercedes benz">Mercedes Benz</option>
+                      <option value="opel">Opel</option>
+                      <option value="peugeot">Peugeot</option>
+                      <option value="renault">Renault</option>
+                      <option value="volkswagen">Volkswagen</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label style="margin-left: 120px; margin-top: 20px;"> Kubikaža: </label>
+                </div>
+                <div class="row">
+                    <input type="number" id="cubic" [(ngModel)]="selectedCubic" class="form-control" name="price" min="800" max="8000" style="width: 130px; margin-left: 130px; height: 25px;">
+                </div>
+                <div class="row">
+                    <label style="margin-left: 120px; margin-top: 40px;"> Kilometraža: </label>
+                </div>
+                <div class="row">
+                    <input type="number" id="km" [(ngModel)]="selectedKm" class="form-control" name="price" min="0" max="600000" style="width: 130px; margin-left: 130px; height: 25px;">
+                </div>
+                <div class="row">
+                    <label for="" style="margin-top: 40px; margin-left: 120px;"> Cena (u eurima): </label>
+                </div>
+                <div class="row">
+                    <input type="number" [(ngModel)]="selectedPrice" class="form-control" id="price" name="price" min="100" max="200000" style="width: 130px; margin-left: 130px; height: 25px;">
+                </div>
+            </div>
+            <div class="col-3" style="margin-left: 100px;">
+                <div class="row">
+                  <label style="margin-top: 40px; margin-left: 50px;"> Izaberite model: </label>
+                </div>
+                <div class="row">
+                  <select name="cars" class="form-control" id="model" style="width: 130px; margin-left: 60px;" [(ngModel)]="selectedModel">
+                    <option *ngFor="let model of models" [ngValue]="model">{{model}}</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <label for="" style="margin-left: 50px; margin-top: 20px;"> Broj kilovata: </label>
+                </div>
+                <div class="row">
+                  <select name="kilowatts" class="form-control" [(ngModel)]="selectedKw" id="kilowatts" style="margin-left: 60px; width: 130px;">
+                    <option value=""> ... </option>
+                    <option value="25kW">25kW(34KS)</option>
+                    <option value="35kW">35kW(48KS)</option>
+                    <option value="44kW">44kW(60KS)</option>
+                    <option value="55kW">55kW(75KS)</option>
+                    <option value="66kW">66kW(90KS)</option>
+                    <option value="74kW">74kW(101KS)</option>
+                    <option value="80kW">80kW(109KS)</option>
+                    <option value="85kW">85kW(116KS)</option>
+                    <option value="96kW">96kW(131KS)</option>
+                    <option value="110kW">110kW(150KS)</option>
+                    <option value="125kW">125kW(170KS)</option>
+                    <option value="147kW">147kW(200KS)</option>
+                    <option value="184kW">184kW(250KS)</option>
+                    <option value="222kW">222kW(302KS)</option>
+                    <option value="262kW">262kW(356KS)</option>
+                    <option value="294kW">294kW(402KS)</option>
+                    <option value="333kW">333kW(453KS)</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <label style="margin-left: 50px; margin-top: 20px;"> Godište: </label>
+                </div>
+                <div class="row">
+                  <select class="form-control" name="year" [(ngModel)]="selectedYear" id="year" style="margin-left: 60px; width: 130px; ">
+                    <option value=""> ... </option>
+                    <option value="1990">1990</option>
+                    <option value="1991">1991</option>
+                    <option value="1992">1992</option>
+                    <option value="1993">1993</option>
+                    <option value="1994">1994</option>
+                    <option value="1995">1995</option>
+                    <option value="1996">1996</option>
+                    <option value="1997">1997</option>
+                    <option value="1998">1998</option>
+                    <option value="1999">1999</option>
+                    <option value="2000">2000</option>
+                    <option value="2001">2001</option>
+                    <option value="2002">2002</option>
+                    <option value="2003">2003</option>
+                    <option value="2004">2004</option>
+                    <option value="2005">2005</option>
+                    <option value="2006">2006</option>
+                    <option value="2007">2007</option>
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                  </select>
+                </div>
+            </div>
+            <div class="col-3" style="margin-left: 100px;">
+                <div class="row">
+                  <label style=" margin-top: 40px;"> Vrsta goriva: </label>
+                </div>
+                <div class="row">
+                  <select name="fuel" [(ngModel)]="selectedFuel" class="form-control" id="fuel" style="margin-left: 10px; width: 180px; ">
+                    <option value=""> ... </option>
+                    <option value="gasoline">Benzin</option>
+                    <option value="tng">Gas</option>
+                    <option value="diesel">Dizel</option>
+                    <option value="hybrid">Hibridni pogon</option>
+                    <option value="electric">Električni pogon</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <label style="margin-top: 20px;"> Menjač: </label>
+                </div>
+                <div class="row">
+                  <select name="transmission" [(ngModel)]="selectedTransmission" class="form-control" id="transmission" style="width: 180px; margin-left: 10px;">
+                    <option value=""> ... </option>
+                    <option value="manual"> Manuelni </option>
+                    <option value="automatic">Automatski </option>
+                  </select>
+                </div>
+                <div class="row">
+                    <label for="" style="margin-top: 20px;"> Broj šasije : </label>
+                </div>
+                <div class="row">
+                    <input type="text" class="form-control" id="chassis" name="chassis" style="width: 180px; margin-left: 10px; height: 25px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 80px;"> 
+        <div class="col-4">
+            <button class="btn btn-primary" style=" margin-left: 240px; width: 150px; margin-top: 20px;"> Upload photo </button>
+        </div>
+        <div class="col-4" style="text-align: center;" *ngIf="images.length !== 0">
+            <label style="font-size: 35px;"> <b>All images</b> </label>
+        </div>
+    </div>
+    <div class="row" *ngIf="images.length !== 0">
+        <div class="col-9">
+            <div class="container" style="margin-left: 210px; width: 1100px;">
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                        <tr >
+                                            <th scope="col">Path</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let image of images;let indexOfelement=index;">
+                                        <tr>
+                                            <td scope="col">{{image}}</td>
+                                            <td> <button class="btn btn-danger" (click)="removePhoto(indexOfelement)"> Remove photo </button> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label style="margin-left: 240px; margin-top: 100px;"> Opis: </label>     
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <textarea type="text" [(ngModel)]="insertedDescription" id="opis" class="md-textarea form-control" style="margin-left: 240px; height: 100px; width: 1050px;" placeholder="Dodaj opis..." mdbInput></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <label style="margin-left: 240px; margin-top: 100px;"> Oprema: </label>     
+    </div>
+    <div class="row">
+        <div class="col-2" style="margin-left: 240px; margin-top: 20px;">
+            <input type="checkbox" id="equipment1" name="equipment1" value="Metalik boja">
+            <label for="equipment1"> Metalik boja</label><br>
+        </div> 
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment2" name="equipment2" value="Tempomat">
+            <label for="equipment2"> Tempomat</label><br>
+        </div>
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment3" name="equipment3" value="Svetla za maglu">
+            <label for="equipment3"> Svetla za maglu</label><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2" style="margin-left: 240px; margin-top: 20px;">
+            <input type="checkbox" id="equipment4" name="equipment4" value="Navigacija">
+            <label for="equipment4"> Navigacija</label><br>
+        </div> 
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment5" name="equipment5" value="Električni retrovizori">
+            <label for="equipment5"> Električni retrovizori</label><br>
+        </div>
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment6" name="equipment6" value="Kamera">
+            <label for="equipment6"> Kamera</label><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2" style="margin-left: 240px; margin-top: 20px;">
+            <input type="checkbox" id="equipment7" name="equipment7" value="Bluetooth">
+            <label for="equipment7"> Bluetooth</label><br>
+        </div> 
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment8" name="equipment8" value="Krovni nosač">
+            <label for="equipment8"> Krovni nosač</label><br>
+        </div>
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment9" name="equipment9" value="MP3">
+            <label for="equipment9"> MP3</label><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2" style="margin-left: 240px; margin-top: 20px;">
+            <input type="checkbox" id="equipment10" name="equipment10" value="Senzori za svetla">
+            <label for="equipment10"> Senzori za svetla</label><br>
+        </div> 
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment11" name="equipment11" value="Senzori za kišu">
+            <label for="equipment11"> Senzori za kišu</label><br>
+        </div>
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment12" name="equipment12" value="Glasovne komande">
+            <label for="equipment12"> Glasovne komande</label><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2" style="margin-left: 240px; margin-top: 20px;">
+            <input type="checkbox" id="equipment13" name="equipment13" value="Otvor za skije">
+            <label for="equipment13"> Otvor za skije</label><br>
+        </div> 
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment14" name="equipment14" value="Automatsko parkiranje">
+            <label for="equipment14"> Automatsko parkiranje</label><br>
+        </div>
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment15" name="equipment15" value="Električni podizači stakala">
+            <label for="equipment15"> Električni podizači stakala</label><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2" style="margin-left: 240px; margin-top: 20px;">
+            <input type="checkbox" id="equipment16" name="equipment16" value="Multimedija">
+            <label for="equipment16"> Multimedija</label><br>
+        </div> 
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment17" name="equipment17" value="LED prednja svetla">
+            <label for="equipment17"> LED prednja svetla</label><br>
+        </div>
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment18" name="equipment18" value="LED zadnja svetla">
+            <label for="equipment18"> LED zadnja svetla</label><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2" style="margin-left: 240px; margin-top: 20px;">
+            <input type="checkbox" id="equipment19" name="equipment19" value="DPF filter">
+            <label for="equipment19"> DPF filter</label><br>
+        </div> 
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment20" name="equipment20" value="AUX konekcija">
+            <label for="equipment20"> AUX konekcija</label><br>
+        </div>
+        <div class="col-2" style="margin-left: 50px; margin-top: 20px;">
+            <input type="checkbox" id="equipment21" name="equipment21" value="Rezervni točak">
+            <label for="equipment21"> Rezervni točak</label><br>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-dark" style=" margin-left: 240px; width: 150px; margin-top: 60px;"> Add car </button>
+    </div>
+    <div class="row" style="height: 180px;"></div>
+</div>
