@@ -16,10 +16,7 @@ export class ShowRequestsForNewPostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.carService.getAllCars().subscribe(ret => {
-      for(let car of ret) {
-        if(car.approved === false)
-          this.showedCars.push(car)
-      }
+      this.showedCars = ret;
     })
   }
 
@@ -36,7 +33,7 @@ export class ShowRequestsForNewPostsComponent implements OnInit {
     car.approved = true;
     this.carService.editCar(car).subscribe(ret => {
       if(ret)
-        this.showedCars.splice(index, 1);
+        this.showedCars[index].approved = true;
     })
   }
 

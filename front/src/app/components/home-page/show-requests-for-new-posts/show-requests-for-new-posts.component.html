@@ -26,13 +26,16 @@
                                 </tr>
                             </thead>
                             <tbody *ngFor="let car of showedCars;let indexOfelement=index;">
-                                <tr *ngIf="car.approved === false">
+                                <tr >
                                     <td scope="col"><img *ngIf="car?.images != null" style="width:120px;height:80px;"  [src]="('../../../assets/images/' + car.model.toLowerCase() + '/' + car?.images[0] +'.jpg')" alt="."><img *ngIf="car?.images == null" style="width:120px;height:80px;"  src="../../../assets/images/undefined.jpg" alt="."></td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.brand}} {{car.model}}</td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.yearOfProduction}}</td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.price}}€</td>
-                                    <td style="vertical-align: middle; "> <button class="btn btn-success" (click)="acceptCar(indexOfelement)" > Accept registration </button> </td>
-                                    <td style="vertical-align: middle; "> <button class="btn btn-danger" (click)="deleteCar(indexOfelement)" > Cancel registration </button> </td>
+                                    <td style="vertical-align: middle; "> 
+                                        <button class="btn btn-success" *ngIf="car.approved === false" (click)="acceptCar(indexOfelement)" > Accept registration </button> 
+                                        <button class="btn btn-danger" *ngIf="car.approved === true" (click)="deleteCar(indexOfelement)" > Delete </button> 
+                                    </td>
+                                    <td style="vertical-align: middle; " *ngIf="car.approved === false"> <button class="btn btn-danger" (click)="deleteCar(indexOfelement)" > Cancel registration </button> </td>
                                 </tr>
                             </tbody>
                         </table>
