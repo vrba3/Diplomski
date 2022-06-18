@@ -13,6 +13,10 @@ export class CarService {
   private getUserCarsUrl: string;
   private deleteCarUrl: string;
   private editCarUrl: string;
+  private addCarUrl: string;
+  private uploadImgUrl: string;
+  private deleteFolderUrl: string;
+  private deletePhotoUrl: string;
 
   constructor(private http: HttpClient) {
     this.getAllCarsUrl = 'http://localhost:8080/cars/allCars'
@@ -21,6 +25,10 @@ export class CarService {
     this.getUserCarsUrl = 'http://localhost:8080/cars/userCars'
     this.deleteCarUrl = 'http://localhost:8080/cars/deleteCar'
     this.editCarUrl = 'http://localhost:8080/cars/editCar'
+    this.addCarUrl = 'http://localhost:8080/cars/addCar'
+    this.uploadImgUrl = 'http://localhost:8080/cars/uploadPhoto'
+    this.deleteFolderUrl = 'http://localhost:8080/cars/deleteFolder'
+    this.deletePhotoUrl = 'http://localhost:8080/cars/deletePhoto'
   }
 
   public getAllCars(): Observable<Array<Car>> {
@@ -37,6 +45,30 @@ export class CarService {
 
     return this.http.get<Array<Car>>(this.getUserCarsUrl, {headers: headers, params: params});
   }
+
+  public addCar(car: Car):Observable<Car>{
+    return this.http.post<Car>(this.addCarUrl,car);
+  }
+
+  public uploadPhoto(image:File, name:string):Observable<boolean> {
+    const formData:FormData = new FormData();
+    formData.append('image', image);
+    let params = new HttpParams().set("name",name);
+
+    return this.http.post<boolean>(this.uploadImgUrl, formData, {params: params});
+  } 
+
+  public deleteFolder(car: Car):Observable<boolean> {
+    return this.http.post<boolean>(this.deleteFolderUrl, car);
+  } 
+
+  public deletePhoto(image: File, name:string):Observable<boolean> {
+    const formData:FormData = new FormData();
+    formData.append('image', image);
+    let params = new HttpParams().set("name",name);
+
+    return this.http.post<boolean>(this.deletePhotoUrl, formData, {params: params});
+  } 
 
   public getSearchedCars(text: string): Observable<Array<Car>> {
     let headers = new HttpHeaders();

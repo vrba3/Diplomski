@@ -1,15 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Car;
-import com.example.demo.model.User;
 import com.example.demo.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,42 @@ public class CarController {
     @GetMapping("cars/searchedCars")
     public ResponseEntity<List<Car>> getSearchedCars(@RequestParam("text") String text) {
         return new ResponseEntity<List<Car>>(carService.getSearchedCars(text), HttpStatus.OK);
+    }
+
+    @PostMapping("cars/uploadPhoto")
+    public ResponseEntity<Boolean> uploadPhoto(@RequestParam("image") MultipartFile image, @RequestParam("name") String name) throws IOException {
+        if(carService.uploadPhoto(image, name)){
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @PostMapping("/cars/deleteFolder")
+    public ResponseEntity<Boolean> deleteFolder(@RequestBody Car car, HttpServletRequest request) throws IOException {
+        if (carService.deleteFolder(Long.toString(car.getId()))) {
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @PostMapping("cars/deletePhoto")
+    public ResponseEntity<Boolean> deletePhoto(@RequestParam("image") MultipartFile image, @RequestParam("name") String name) throws IOException {
+        if(carService.deletePhoto(image, name)) {
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @PostMapping("/cars/addCar")
+    public ResponseEntity<Boolean> addCar(@RequestBody Car car, HttpServletRequest request){
+        if (carService.addCar(car)) {
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
+        }
     }
 
     @GetMapping("cars/openedCar")

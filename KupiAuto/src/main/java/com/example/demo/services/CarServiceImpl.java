@@ -3,9 +3,19 @@ package com.example.demo.services;
 import com.example.demo.model.Car;
 import com.example.demo.model.User;
 import com.example.demo.repository.CarRepository;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +45,58 @@ public class CarServiceImpl implements CarService{
         }
 
         return retCars;
+    }
+
+    private void createFolder(String name) {
+        String filePath = "d:\\Vladimir\\Documents\\GitHub\\Diplomski\\front\\src\\assets\\images\\" + name;
+        File file = new File(filePath);
+        if(!file.exists()) {
+            file.mkdir();
+        }
+    }
+
+    public Boolean deletePhoto(MultipartFile image, String name) throws IOException {
+        String orgName = image.getOriginalFilename();
+        orgName = orgName.substring(0, orgName.length()-4);
+
+        String filePath = "d:\\Vladimir\\Documents\\GitHub\\Diplomski\\front\\src\\assets\\images\\" + name + "\\" + orgName + ".jpg";
+        File file = new File(filePath);
+
+        if(file.exists())
+            file.delete();
+
+        return true;
+    }
+
+    public Boolean deleteFolder(String name) throws IOException {
+        String filePath = "d:\\Vladimir\\Documents\\GitHub\\Diplomski\\front\\src\\assets\\images\\" + name;
+        File file = new File(filePath);
+        if(file.exists())
+            FileUtils.deleteDirectory(file);
+
+        return true;
+    }
+
+    public boolean uploadPhoto(MultipartFile image, String name) throws IOException {
+        createFolder(name);
+        String orgName = image.getOriginalFilename();
+        orgName = orgName.substring(0, orgName.length()-4);
+
+        String filePath = "d:\\Vladimir\\Documents\\GitHub\\Diplomski\\front\\src\\assets\\images\\" + name + "\\" + orgName + ".jpg";
+        File file = new File(filePath);
+
+        if(!file.exists()) {
+            try {
+                image.transferTo(Paths.get(filePath));
+                return true;
+            }
+            catch (IllegalStateException | IOException e)
+            {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     private void addEquipment() {
@@ -89,6 +151,12 @@ public class CarServiceImpl implements CarService{
                 i++;
             }
         }
+    }
+
+    public Boolean addCar(Car car) {
+        car.setApproved(false);
+        carRepository.save(car);
+        return true;
     }
 
     private void addPictures() {

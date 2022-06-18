@@ -22,20 +22,23 @@
                 <div class="row">
                     <select name="cars" class="form-control" id="brand" style="margin-left: 130px; width: 130px;" (change)="changeCar()" [(ngModel)]="selectedBrand">
                       <option value=""> ... </option>
-                      <option value="audi"> Audi </option>
-                      <option value="bmw">BMW</option>
-                      <option value="citroen">Citroen</option>
-                      <option value="dacia">Dacia</option>
-                      <option value="fiat">Fiat</option>
-                      <option value="ford">Ford</option>
-                      <option value="honda">Honda</option>
-                      <option value="hyundai">Hyundai</option>
-                      <option value="mercedes benz">Mercedes Benz</option>
-                      <option value="opel">Opel</option>
-                      <option value="peugeot">Peugeot</option>
-                      <option value="renault">Renault</option>
-                      <option value="volkswagen">Volkswagen</option>
+                      <option value="Audi"> Audi </option>
+                      <option value="Bmw">BMW</option>
+                      <option value="Citroen">Citroen</option>
+                      <option value="Dacia">Dacia</option>
+                      <option value="Fiat">Fiat</option>
+                      <option value="Ford">Ford</option>
+                      <option value="Honda">Honda</option>
+                      <option value="Hyundai">Hyundai</option>
+                      <option value="Mercedes Benz">Mercedes Benz</option>
+                      <option value="Opel">Opel</option>
+                      <option value="Peugeot">Peugeot</option>
+                      <option value="Renault">Renault</option>
+                      <option value="Volkswagen">Volkswagen</option>
                     </select>
+                </div>
+                <div class="row">
+                    <label style="color: red; margin-left: 120px;" *ngIf="brandError"> Brand is required! </label>
                 </div>
                 <div class="row">
                     <label style="margin-left: 120px; margin-top: 20px;"> Kubikaža: </label>
@@ -44,16 +47,25 @@
                     <input type="number" id="cubic" [(ngModel)]="selectedCubic" class="form-control" name="price" min="800" max="8000" style="width: 130px; margin-left: 130px; height: 25px;">
                 </div>
                 <div class="row">
+                    <label style="color: red; margin-left: 120px;" *ngIf="cubicError"> Cubic capacity is required! </label>
+                </div>
+                <div class="row">
                     <label style="margin-left: 120px; margin-top: 40px;"> Kilometraža: </label>
                 </div>
                 <div class="row">
                     <input type="number" id="km" [(ngModel)]="selectedKm" class="form-control" name="price" min="0" max="600000" style="width: 130px; margin-left: 130px; height: 25px;">
                 </div>
                 <div class="row">
+                    <label style="color: red; margin-left: 120px;" *ngIf="kilometersError"> Num of kilometers is required! </label>
+                </div>
+                <div class="row">
                     <label for="" style="margin-top: 40px; margin-left: 120px;"> Cena (u eurima): </label>
                 </div>
                 <div class="row">
                     <input type="number" [(ngModel)]="selectedPrice" class="form-control" id="price" name="price" min="100" max="200000" style="width: 130px; margin-left: 130px; height: 25px;">
+                </div>
+                <div class="row">
+                    <label style="color: red; margin-left: 120px;" *ngIf="priceError"> Price is required! </label>
                 </div>
             </div>
             <div class="col-3" style="margin-left: 100px;">
@@ -66,7 +78,10 @@
                   </select>
                 </div>
                 <div class="row">
-                  <label for="" style="margin-left: 50px; margin-top: 20px;"> Broj kilovata: </label>
+                    <label style="color: red; margin-left: 50px;" *ngIf="modelError"> Model is required! </label>
+                </div>
+                <div class="row">
+                  <label for="" style="margin-left: 50px; margin-top: 20px;"> Snaga motora: </label>
                 </div>
                 <div class="row">
                   <select name="kilowatts" class="form-control" [(ngModel)]="selectedKw" id="kilowatts" style="margin-left: 60px; width: 130px;">
@@ -89,6 +104,9 @@
                     <option value="294kW">294kW(402KS)</option>
                     <option value="333kW">333kW(453KS)</option>
                   </select>
+                </div>
+                <div class="row">
+                    <label style="color: red; margin-left: 50px;" *ngIf="powerError"> Power is required! </label>
                 </div>
                 <div class="row">
                   <label style="margin-left: 50px; margin-top: 20px;"> Godište: </label>
@@ -131,6 +149,9 @@
                     <option value="2022">2022</option>
                   </select>
                 </div>
+                <div class="row">
+                    <label style="color: red; margin-left: 50px;" *ngIf="yearError"> Year of production is required! </label>
+                </div>
             </div>
             <div class="col-3" style="margin-left: 100px;">
                 <div class="row">
@@ -147,6 +168,9 @@
                   </select>
                 </div>
                 <div class="row">
+                    <label style="color: red;" *ngIf="fuelError"> Fuel is required! </label>
+                </div>
+                <div class="row">
                   <label style="margin-top: 20px;"> Menjač: </label>
                 </div>
                 <div class="row">
@@ -157,20 +181,37 @@
                   </select>
                 </div>
                 <div class="row">
-                    <label for="" style="margin-top: 20px;"> Broj šasije : </label>
+                    <label style="color: red;" *ngIf="transmissionError"> Transmission is required! </label>
+                </div>
+                <div class="row">
+                    <label for="" style="margin-top: 20px;"> Broj šasije: </label>
                 </div>
                 <div class="row">
                     <input type="text" class="form-control" id="chassis" name="chassis" style="width: 180px; margin-left: 10px; height: 25px;">
+                </div>
+                <div class="row">
+                    <label style="color: red;" *ngIf="chassisError"> Chassis number is required! </label>
+                </div>
+                <div class="row">
+                    <label style="color: red;" *ngIf="chassisLengthError"> Chassis number must have 15 of 16 characters! </label>
                 </div>
             </div>
         </div>
     </div>
     <div class="row" style="margin-top: 80px;"> 
         <div class="col-4">
-            <button class="btn btn-primary" style=" margin-left: 240px; width: 150px; margin-top: 20px;"> Upload photo </button>
+            <div>
+                <input type="file" class="form-control" style=" margin-left: 240px; width: 300px; margin-top: 20px;"
+                (change)="onChange($event)">
+                <label *ngIf="chooseFileError" style=" margin-left: 240px; width: 300px; margin-top: 10px; color: red;"> You need to choose file! </label>
+                <label *ngIf="photoError" style=" margin-left: 240px; width: 300px; margin-top: 10px; color: red;"> This photo is already added! </label>
+                <div>
+                    <button class="btn btn-primary" type="button" style=" margin-left: 240px; width: 150px; margin-top: 10px;" (click)="savePhoto()"> Upload photo </button>
+                </div>
+              </div>
         </div>
         <div class="col-4" style="text-align: center;" *ngIf="images.length !== 0">
-            <label style="font-size: 35px;"> <b>All images</b> </label>
+            <label style="font-size: 35px; margin-top: 30px;"> <b>All images</b> </label>
         </div>
     </div>
     <div class="row" *ngIf="images.length !== 0">
@@ -183,11 +224,13 @@
                                 <table class="table">
                                     <thead class="thead-light">
                                         <tr >
+                                            <th scope="col">Image</th>
                                             <th scope="col">Path</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let image of images;let indexOfelement=index;">
                                         <tr>
+                                            <td> <img style="width:120px;height:80px;"  [src]="('../../../assets/images/' + newId + '/' + image)" alt="."></td>
                                             <td scope="col">{{image}}</td>
                                             <td> <button class="btn btn-danger" (click)="removePhoto(indexOfelement)"> Remove photo </button> </td>
                                         </tr>
@@ -310,7 +353,7 @@
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-dark" style=" margin-left: 240px; width: 150px; margin-top: 60px;"> Add car </button>
+        <button class="btn btn-dark" style=" margin-left: 240px; width: 150px; margin-top: 60px;" (click)="addCar()"> Add car </button>
     </div>
     <div class="row" style="height: 180px;"></div>
 </div>

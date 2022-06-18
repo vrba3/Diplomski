@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
     protected String brand;
     protected String model;

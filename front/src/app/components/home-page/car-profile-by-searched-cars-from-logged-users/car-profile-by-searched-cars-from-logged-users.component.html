@@ -21,9 +21,9 @@
     <div class="row" style="margin-top: 50px;">
         <div class="col-8" style="margin-left: 140px;">
             <div class="container" >
-                <input *ngIf="car?.images != null" (click)="previousImage()" type="image" style="width: 40px; height: 40px; margin-top: 20px;" src="../../../assets/images/left-arrow.png" >
-                <img *ngIf="car?.images != null" style="width:780px; height:550px;"  [src]="('../../../assets/images/' + car.model.toLowerCase() + '/' + car?.images[numOfImg] +'.jpg')" alt="."><img *ngIf="car?.images == null" style="width:780px; height:550px; margin-left: 40px;"  src="../../../assets/images/undefined.jpg" alt=".">
-                <input *ngIf="car?.images != null" (click)="nextImage()" type="image" style="width: 40px; height: 40px; margin-top: 20px;" src="../../../assets/images/right-arrow.png" >
+                <input *ngIf="car?.images != null && car?.images.length != 0" (click)="previousImage()" type="image" style="width: 40px; height: 40px; margin-top: 20px;" src="../../../assets/images/left-arrow.png" >
+                <img *ngIf="car?.images != null && car?.images.length != 0" style="width:780px; height:550px;"  [src]="('../../../assets/images/' + car.id.toString() + '/' + car?.images[numOfImg] +'.jpg')" alt="."><img *ngIf="car?.images == null || car?.images.length == 0" style="width:780px; height:550px; margin-left: 40px;"  src="../../../assets/images/undefined.jpg" alt=".">
+                <input *ngIf="car?.images != null && car?.images.length != 0" (click)="nextImage()" type="image" style="width: 40px; height: 40px; margin-top: 20px;" src="../../../assets/images/right-arrow.png" >
             </div>
         </div>
         <div class="row" style="width: 300px; height: 190px; background-color: white; margin-top: 150px; border-radius: 10px;">

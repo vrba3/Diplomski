@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Car } from 'src/app/model/car';
 import { User } from 'src/app/model/user';
 import { CarService } from 'src/app/services/car.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,6 +23,21 @@ export class AddNewCarComponent implements OnInit {
   selectedTransmission: string = '';
   insertedDescription: string = '';
   images: Array<String> = new Array<String>();
+  file: File = null;
+  chooseFileError: Boolean = false;
+  brandError: Boolean = false;
+  modelError: Boolean = false;
+  fuelError: Boolean = false;
+  cubicError: Boolean = false;
+  powerError: Boolean = false;
+  transmissionError: Boolean = false;
+  kilometersError: Boolean = false;
+  yearError: Boolean = false;
+  chassisError: Boolean = false;
+  chassisLengthError: Boolean = false;
+  priceError: Boolean = false;
+  newId: number = 1;
+  photoError: Boolean = false;
 
   @Output() homePage = new EventEmitter<string>();
 
@@ -33,17 +49,46 @@ export class AddNewCarComponent implements OnInit {
     })
     let model = document.getElementById('model') as HTMLSelectElement;
     model.disabled = true;
+    this.generateId();
   }
 
-  goBackToHomePage() {
-    if(this.user.email === 'vrbica.vlado11@gmail.com')
-      this.homePage.emit('administrator');
-    else
-      this.homePage.emit('user');
+  goBackToHomePage() {    
+    let car = new Car()
+    car.id = this.newId
+    this.carService.deleteFolder(car).subscribe(ret => {
+      if(ret) {
+        if(this.user.email === 'vrbica.vlado11@gmail.com')
+          this.homePage.emit('administrator');
+        else
+          this.homePage.emit('user');
+      }
+    })
   }
 
   removePhoto(index: number) {
-    this.images.splice(index, 1);
+    this.carService.deletePhoto(this.file, this.newId.toString()).subscribe(ret => {
+      if(ret)
+        this.images.splice(index, 1);
+    })
+  }
+
+  savePhoto() {
+    this.photoError = false;
+    if(this.file?.name.match(/.(jpg)$/i)){
+      this.chooseFileError = false;
+      this.carService.uploadPhoto(this.file, this.newId.toString()).subscribe(ret => {
+        if(ret) {
+          this.images.push(this.file.name); 
+        } else {
+          this.photoError = true;
+        }
+      });
+    } else  
+      this.chooseFileError = true;
+  }
+
+  onChange(event) {
+    this.file = event.target.files[0]
   }
 
   changeCar() {  
@@ -52,31 +97,31 @@ export class AddNewCarComponent implements OnInit {
     let model = document.getElementById('model') as HTMLSelectElement;
     model.disabled = false;
 
-    if(value === 'audi')
+    if(value === 'Audi')
       this.setAudiModels();
-    else if(value === 'bmw')
+    else if(value === 'Bmw')
       this.setBMWModels();
-    else if(value === 'citroen')
+    else if(value === 'Citroen')
       this.setCitroenModels();
-    else if(value === 'dacia')
+    else if(value === 'Dacia')
       this.setDaciaModels();
-    else if(value === 'fiat')
+    else if(value === 'Fiat')
       this.setFiatModels();
-    else if(value === 'ford')
+    else if(value === 'Ford')
       this.setFordModels();
-    else if(value === 'honda')
+    else if(value === 'Honda')
       this.setHondaModels();
-    else if(value === 'hyundai')
+    else if(value === 'Hyundai')
       this.setHyundaiModels();
-    else if(value === 'mercedes benz')
+    else if(value === 'Mercedes Benz')
       this.setMercedesModels();
-    else if(value === 'opel')
+    else if(value === 'Opel')
       this.setOpelModels();
-    else if(value === 'peugeot')
+    else if(value === 'Peugeot')
       this.setPeugeotModels();
-    else if(value === 'renault')
+    else if(value === 'Renault')
       this.setRenaultModels();
-    else if(value === 'volkswagen')
+    else if(value === 'Volkswagen')
       this.setVWModels();
     else if(value === ''){
       this.models = new Array<String>()
@@ -317,5 +362,207 @@ export class AddNewCarComponent implements OnInit {
     this.models.push('Logan')
     this.models.push('Sandero')
     this.models.push('Duster')
+  }
+
+  putErrorsOnFalse() {
+    this.chooseFileError = false;
+    this.brandError = false;
+    this.modelError = false;
+    this.fuelError = false;
+    this.cubicError = false;
+    this.powerError = false;
+    this.transmissionError = false;
+    this.kilometersError = false;
+    this.yearError = false;
+    this.chassisError = false;
+    this.chassisLengthError = false;
+    this.priceError = false;
+  }
+
+  addCar() {
+    this.putErrorsOnFalse();
+    let car = new Car()
+    let selectedBrand = document.getElementById('brand') as HTMLSelectElement
+    let selectedCubic = document.getElementById('cubic') as HTMLInputElement
+    let selectedKm = document.getElementById('km') as HTMLInputElement
+    let selectedPrice = document.getElementById('price') as HTMLInputElement
+    let selectedModel = document.getElementById('model') as HTMLSelectElement
+    let selectedPower = document.getElementById('kilowatts') as HTMLSelectElement
+    let selectedYear = document.getElementById('year') as HTMLSelectElement
+    let selectedFuel = document.getElementById('fuel') as HTMLSelectElement
+    let selectedTransmission = document.getElementById('transmission') as HTMLSelectElement
+    let selectedChassis = document.getElementById('chassis') as HTMLInputElement
+    let desc = document.getElementById('opis') as HTMLTextAreaElement
+    let equipment1 = document.getElementById('equipment1') as HTMLInputElement
+    let equipment2 = document.getElementById('equipment2') as HTMLInputElement
+    let equipment3 = document.getElementById('equipment3') as HTMLInputElement
+    let equipment4 = document.getElementById('equipment4') as HTMLInputElement
+    let equipment5 = document.getElementById('equipment5') as HTMLInputElement
+    let equipment6 = document.getElementById('equipment6') as HTMLInputElement
+    let equipment7 = document.getElementById('equipment7') as HTMLInputElement
+    let equipment8 = document.getElementById('equipment8') as HTMLInputElement
+    let equipment9 = document.getElementById('equipment9') as HTMLInputElement
+    let equipment10 = document.getElementById('equipment10') as HTMLInputElement
+    let equipment11 = document.getElementById('equipment11') as HTMLInputElement
+    let equipment12 = document.getElementById('equipment12') as HTMLInputElement
+    let equipment13 = document.getElementById('equipment13') as HTMLInputElement
+    let equipment14 = document.getElementById('equipment14') as HTMLInputElement
+    let equipment15 = document.getElementById('equipment15') as HTMLInputElement
+    let equipment16 = document.getElementById('equipment16') as HTMLInputElement
+    let equipment17 = document.getElementById('equipment17') as HTMLInputElement
+    let equipment18 = document.getElementById('equipment18') as HTMLInputElement
+    let equipment19 = document.getElementById('equipment19') as HTMLInputElement
+    let equipment20 = document.getElementById('equipment20') as HTMLInputElement
+    let equipment21 = document.getElementById('equipment21') as HTMLInputElement
+
+    if(this.checkFields()){
+      car.id = this.newId
+      car.brand = selectedBrand.value
+      car.model = selectedModel.value.split(':')[1]
+      car.cubicCapacity = parseInt(selectedCubic.value)
+      car.numOfKilometers = parseInt(selectedKm.value)
+      car.price = parseInt(selectedPrice.value)
+      if(selectedPower.value.length === 4)
+        car.numOfKw = parseInt(selectedPower.value.substring(0, 2))
+      else if(selectedPower.value.length === 5)
+        car.numOfKw = parseInt(selectedPower.value.substring(0, 3))
+      car.yearOfProduction = parseInt(selectedYear.value)
+      car.fuel = selectedFuel.value
+      car.transmission = selectedTransmission.value
+      car.numOfChassis = selectedChassis.value
+      for(let i=0; i < this.images.length; i++) {
+        this.images[i] = this.images[i].substring(0, this.images[i].length-4)
+      }
+      car.images = this.images
+      car.description = desc.value
+      car.equipment = new Array<String>()
+      if(equipment1.checked)
+        car.equipment.push(equipment1.value)
+      if(equipment2.checked)
+        car.equipment.push(equipment2.value)
+      if(equipment3.checked)
+        car.equipment.push(equipment3.value)
+      if(equipment4.checked)
+        car.equipment.push(equipment4.value)
+      if(equipment5.checked)
+        car.equipment.push(equipment5.value)
+      if(equipment6.checked)
+        car.equipment.push(equipment6.value)
+      if(equipment7.checked)
+        car.equipment.push(equipment7.value)
+      if(equipment8.checked)
+        car.equipment.push(equipment8.value)
+      if(equipment9.checked)
+        car.equipment.push(equipment9.value)
+      if(equipment10.checked)
+        car.equipment.push(equipment10.value)
+      if(equipment11.checked)
+        car.equipment.push(equipment11.value)
+      if(equipment12.checked)
+        car.equipment.push(equipment12.value)
+      if(equipment13.checked)
+        car.equipment.push(equipment13.value)
+      if(equipment14.checked)
+        car.equipment.push(equipment14.value)
+      if(equipment15.checked)
+        car.equipment.push(equipment15.value)
+      if(equipment16.checked)
+        car.equipment.push(equipment16.value)
+      if(equipment17.checked)
+        car.equipment.push(equipment17.value)
+      if(equipment18.checked)
+        car.equipment.push(equipment18.value)
+      if(equipment19.checked)
+        car.equipment.push(equipment19.value)
+      if(equipment20.checked)
+        car.equipment.push(equipment20.value)
+      if(equipment21.checked)
+        car.equipment.push(equipment21.value)
+      
+      
+      car.ownersEmail = this.user.email;
+      this.carService.addCar(car).subscribe(ret => {
+        if(ret) {
+          if(this.user.email === 'vrbica.vlado11@gmail.com')
+            this.homePage.emit('administrator');
+          else
+            this.homePage.emit('user');
+        }
+
+      })
+    }
+  }
+
+  checkFields(): Boolean {
+    let selectedBrand = document.getElementById('brand') as HTMLSelectElement
+    let selectedCubic = document.getElementById('cubic') as HTMLInputElement
+    let selectedKm = document.getElementById('km') as HTMLInputElement
+    let selectedPrice = document.getElementById('price') as HTMLInputElement
+    let selectedModel = document.getElementById('brand') as HTMLSelectElement
+    let selectedPower = document.getElementById('kilowatts') as HTMLSelectElement
+    let selectedYear = document.getElementById('year') as HTMLSelectElement
+    let selectedFuel = document.getElementById('fuel') as HTMLSelectElement
+    let selectedTransmission = document.getElementById('transmission') as HTMLSelectElement
+    let selectedChassis = document.getElementById('chassis') as HTMLInputElement
+
+    if(selectedBrand.value === '') {
+      this.brandError = true;
+      return false;
+    }
+    else if(selectedCubic.value === '') {
+      this.cubicError = true;
+      return false;
+    }
+    else if(selectedKm.value === '') {
+      this.kilometersError = true;
+      return false;
+    }
+    else if(selectedPrice.value === '') {
+      this.priceError = true;
+      return false;
+    }
+    else if(selectedModel.value === '') {
+      this.modelError = true;
+      return false;
+    }
+    else if(selectedPower.value === '') {
+      this.powerError = true;
+      return false;
+    }
+    else if(selectedYear.value === '') {
+      this.yearError = true;
+      return false;
+    }
+    else if(selectedFuel.value === '') {
+      this.fuelError = true;
+      return false;
+    }
+    else if(selectedTransmission.value === '') {
+      this.transmissionError = true;
+      return false;
+    }
+    else if(selectedChassis.value === '') {
+      this.chassisError = true;
+      return false;
+    }
+    else if(selectedChassis.value !== '') {
+      if(selectedChassis.value.length < 15 || selectedChassis.value.length > 16) {
+        this.chassisLengthError = true;
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  generateId() {
+    let id = 1
+    this.carService.getAllCars().subscribe(ret => {
+      for(let car of ret){
+        if(car.id > id)
+          id = car.id
+      }
+      this.newId = id+1;
+    })
   }
 }
