@@ -10,8 +10,8 @@
     </div>  
 </div>
 <div style=" background-color: rgba(128, 150, 240, 0.278);">
-    <label style="margin-left: 600px; font-size: 35px; margin-top: 50px;"> <b>Zahtevi za registraciju vozila</b> </label>
-    <div class="container" *ngIf="showedCars.length !== 0">
+    <label style="margin-left: 600px; font-size: 35px; margin-top: 50px;"> <b>Registrovana vozila</b> </label>
+    <div class="container" *ngIf="approvedCars.length !== 0">
         <div class="row">
             <div class="col-12">
                 <div class="card" style="margin-top: 60px;">
@@ -25,17 +25,15 @@
                                     <th scope="col">Price</th>
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let car of showedCars;let indexOfelement=index;">
+                            <tbody *ngFor="let car of approvedCars;let indexOfelement=index;">
                                 <tr >
                                     <td scope="col"><img *ngIf="car?.images != null && car?.images.length != 0" style="width:120px;height:80px;"  [src]="('../../../assets/images/' + car.id.toString() + '/' + car?.images[0] +'.jpg')" alt="."><img *ngIf="car?.images == null || car?.images.length == 0" style="width:120px;height:80px;"  src="../../../assets/images/undefined.jpg" alt="."></td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.brand}} {{car.model}}</td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.yearOfProduction}}</td>
                                     <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.price}}€</td>
                                     <td style="vertical-align: middle; "> 
-                                        <button class="btn btn-success" *ngIf="car.approved === false" (click)="acceptCar(indexOfelement)" > Accept registration </button> 
                                         <button class="btn btn-danger" *ngIf="car.approved === true" (click)="deleteCar(indexOfelement)" > Delete </button> 
                                     </td>
-                                    <td style="vertical-align: middle; " *ngIf="car.approved === false"> <button class="btn btn-danger" (click)="deleteCar(indexOfelement)" > Cancel registration </button> </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -44,8 +42,44 @@
             </div>
         </div>
     </div>
-    <div *ngIf="showedCars.length === 0">
-        <label style="font-size: 25px; margin-left: 600px; margin-top: 70px;"> Trenutno ne postoje registrovana vozila na sajtu!</label>
+    <div *ngIf="approvedCars.length === 0">
+        <label style="font-size: 25px; margin-left: 600px; margin-top: 70px;"> There are not posts on site!</label>
+    </div>
+    <label style="margin-left: 600px; font-size: 35px; margin-top: 50px;"> <b>Zahtevi za registraciju vozila</b> </label>
+    <div class="container" *ngIf="notApprovedCars.length !== 0">
+        <div class="row">
+            <div class="col-12">
+                <div class="card" style="margin-top: 60px;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr >
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Brand and model</th>
+                                    <th scope="col">Year of production</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let car of notApprovedCars;let indexOfelement=index;">
+                                <tr >
+                                    <td scope="col"><img *ngIf="car?.images != null && car?.images.length != 0" style="width:120px;height:80px;"  [src]="('../../../assets/images/' + car.id.toString() + '/' + car?.images[0] +'.jpg')" alt="."><img *ngIf="car?.images == null || car?.images.length == 0" style="width:120px;height:80px;"  src="../../../assets/images/undefined.jpg" alt="."></td>
+                                    <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.brand}} {{car.model}}</td>
+                                    <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.yearOfProduction}}</td>
+                                    <td scope="col" style="vertical-align: middle; font-size: 18px;">{{car.price}}€</td>
+                                    <td style="vertical-align: middle; "> 
+                                        <button class="btn btn-success" *ngIf="car.approved === false" (click)="acceptCar(indexOfelement)" > Accept registration </button>
+                                    </td>
+                                    <td style="vertical-align: middle; " *ngIf="car.approved === false"> <button class="btn btn-danger" (click)="declineCar(indexOfelement)" > Cancel registration </button> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="notApprovedCars.length === 0">
+        <label style="font-size: 25px; margin-left: 600px; margin-top: 70px;"> There are not requests for new posts on site!</label>
     </div>
     <div class="row" style="margin-top: 180px;"></div>
 </div>

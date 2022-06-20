@@ -5,6 +5,8 @@ import com.example.demo.model.User;
 import com.example.demo.repository.CarRepository;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +27,8 @@ public class CarServiceImpl implements CarService{
 
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private JavaMailSender mailSender;
 
     public List<Car> getAllCars() {
         addPictures();
@@ -154,6 +158,7 @@ public class CarServiceImpl implements CarService{
     }
 
     public Boolean addCar(Car car) {
+        sendEmail("Post for your car has been sent to administrator on authorization!", car.getOwnersEmail());
         car.setApproved(false);
         carRepository.save(car);
         return true;
@@ -240,6 +245,7 @@ public class CarServiceImpl implements CarService{
     }
 
     public Boolean deleteCar(Car car) {
+        sendEmail("Post for your car has been deleted by administrator!", car.getOwnersEmail());
         carRepository.deleteById(car.getId());
         return true;
     }
@@ -419,5 +425,13 @@ public class CarServiceImpl implements CarService{
         }
 
         return retCars;
+    }
+
+    private void sendEmail(String message, String userEmail) {
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(userEmail);
+        mail.setFrom("vrbica.vlado11@gmail.com");
+        mail.setText(message);
+        mailSender.send(mail);
     }
 }

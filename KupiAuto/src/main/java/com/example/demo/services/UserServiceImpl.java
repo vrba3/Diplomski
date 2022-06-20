@@ -3,6 +3,8 @@ package com.example.demo.services;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private JavaMailSender mailSender;
 
     public List<User> getAllUsers() {
         Iterable<User> allUsers = userRepository.findAll();
@@ -46,6 +50,7 @@ public class UserServiceImpl implements UserService{
             return false;
 
         userRepository.save(user);
+        sendEmail("Your account has been created!", user.getEmail());
         return true;
     }
 
@@ -61,7 +66,16 @@ public class UserServiceImpl implements UserService{
     }
 
     public Boolean deleteUser(User user) {
+        sendEmail("Your account has been deleted!", user.getEmail());
         userRepository.deleteById(user.getId());
         return true;
+    }
+
+    private void sendEmail(String message, String userEmail) {
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(userEmail);
+        mail.setFrom("vrbica.vlado11@gmail.com");
+        mail.setText(message);
+        mailSender.send(mail);
     }
 }
