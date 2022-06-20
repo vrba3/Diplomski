@@ -187,7 +187,7 @@
                     <label for="" style="margin-top: 20px;"> Broj šasije: </label>
                 </div>
                 <div class="row">
-                    <input type="text" class="form-control" id="chassis" name="chassis" style="width: 180px; margin-left: 10px; height: 25px;">
+                    <input type="text" class="form-control" [(ngModel)]="selectedChassis" id="chassis" name="chassis" style="width: 180px; margin-left: 10px; height: 25px;">
                 </div>
                 <div class="row">
                     <label style="color: red;" *ngIf="chassisError"> Chassis number is required! </label>

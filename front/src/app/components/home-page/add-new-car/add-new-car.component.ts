@@ -21,6 +21,7 @@ export class AddNewCarComponent implements OnInit {
   selectedKm: string = '';
   selectedYear: string = '';
   selectedTransmission: string = '';
+  selectedChassis: string = '';
   insertedDescription: string = '';
   images: Array<String> = new Array<String>();
   file: File = null;
@@ -382,17 +383,6 @@ export class AddNewCarComponent implements OnInit {
   addCar() {
     this.putErrorsOnFalse();
     let car = new Car()
-    let selectedBrand = document.getElementById('brand') as HTMLSelectElement
-    let selectedCubic = document.getElementById('cubic') as HTMLInputElement
-    let selectedKm = document.getElementById('km') as HTMLInputElement
-    let selectedPrice = document.getElementById('price') as HTMLInputElement
-    let selectedModel = document.getElementById('model') as HTMLSelectElement
-    let selectedPower = document.getElementById('kilowatts') as HTMLSelectElement
-    let selectedYear = document.getElementById('year') as HTMLSelectElement
-    let selectedFuel = document.getElementById('fuel') as HTMLSelectElement
-    let selectedTransmission = document.getElementById('transmission') as HTMLSelectElement
-    let selectedChassis = document.getElementById('chassis') as HTMLInputElement
-    let desc = document.getElementById('opis') as HTMLTextAreaElement
     let equipment1 = document.getElementById('equipment1') as HTMLInputElement
     let equipment2 = document.getElementById('equipment2') as HTMLInputElement
     let equipment3 = document.getElementById('equipment3') as HTMLInputElement
@@ -417,24 +407,24 @@ export class AddNewCarComponent implements OnInit {
 
     if(this.checkFields()){
       car.id = this.newId
-      car.brand = selectedBrand.value
-      car.model = selectedModel.value.split(':')[1]
-      car.cubicCapacity = parseInt(selectedCubic.value)
-      car.numOfKilometers = parseInt(selectedKm.value)
-      car.price = parseInt(selectedPrice.value)
-      if(selectedPower.value.length === 4)
-        car.numOfKw = parseInt(selectedPower.value.substring(0, 2))
-      else if(selectedPower.value.length === 5)
-        car.numOfKw = parseInt(selectedPower.value.substring(0, 3))
-      car.yearOfProduction = parseInt(selectedYear.value)
-      car.fuel = selectedFuel.value
-      car.transmission = selectedTransmission.value
-      car.numOfChassis = selectedChassis.value
+      car.brand = this.selectedBrand
+      car.model = this.selectedModel
+      car.cubicCapacity = parseInt(this.selectedCubic)
+      car.numOfKilometers = parseInt(this.selectedKm)
+      car.price = parseInt(this.selectedPrice)
+      if(this.selectedKw.length === 4)
+        car.numOfKw = parseInt(this.selectedKw.substring(0, 2))
+      else if(this.selectedKw.length === 5)
+        car.numOfKw = parseInt(this.selectedKw.substring(0, 3))
+      car.yearOfProduction = parseInt(this.selectedYear)
+      car.fuel = this.selectedFuel
+      car.transmission = this.selectedTransmission
+      car.numOfChassis = this.selectedChassis
       for(let i=0; i < this.images.length; i++) {
         this.images[i] = this.images[i].substring(0, this.images[i].length-4)
       }
       car.images = this.images
-      car.description = desc.value
+      car.description = this.insertedDescription
       car.equipment = new Array<String>()
       if(equipment1.checked)
         car.equipment.push(equipment1.value)
@@ -494,59 +484,48 @@ export class AddNewCarComponent implements OnInit {
   }
 
   checkFields(): Boolean {
-    let selectedBrand = document.getElementById('brand') as HTMLSelectElement
-    let selectedCubic = document.getElementById('cubic') as HTMLInputElement
-    let selectedKm = document.getElementById('km') as HTMLInputElement
-    let selectedPrice = document.getElementById('price') as HTMLInputElement
-    let selectedModel = document.getElementById('brand') as HTMLSelectElement
-    let selectedPower = document.getElementById('kilowatts') as HTMLSelectElement
-    let selectedYear = document.getElementById('year') as HTMLSelectElement
-    let selectedFuel = document.getElementById('fuel') as HTMLSelectElement
-    let selectedTransmission = document.getElementById('transmission') as HTMLSelectElement
-    let selectedChassis = document.getElementById('chassis') as HTMLInputElement
-
-    if(selectedBrand.value === '') {
+    if(this.selectedBrand === '') {
       this.brandError = true;
       return false;
     }
-    else if(selectedCubic.value === '') {
+    else if(this.selectedCubic === '') {
       this.cubicError = true;
       return false;
     }
-    else if(selectedKm.value === '') {
+    else if(this.selectedKm === '') {
       this.kilometersError = true;
       return false;
     }
-    else if(selectedPrice.value === '') {
+    else if(this.selectedPrice === '') {
       this.priceError = true;
       return false;
     }
-    else if(selectedModel.value === '') {
+    else if(this.selectedModel === '') {
       this.modelError = true;
       return false;
     }
-    else if(selectedPower.value === '') {
+    else if(this.selectedKw === '') {
       this.powerError = true;
       return false;
     }
-    else if(selectedYear.value === '') {
+    else if(this.selectedYear === '') {
       this.yearError = true;
       return false;
     }
-    else if(selectedFuel.value === '') {
+    else if(this.selectedFuel === '') {
       this.fuelError = true;
       return false;
     }
-    else if(selectedTransmission.value === '') {
+    else if(this.selectedTransmission === '') {
       this.transmissionError = true;
       return false;
     }
-    else if(selectedChassis.value === '') {
+    else if(this.selectedChassis === '') {
       this.chassisError = true;
       return false;
     }
-    else if(selectedChassis.value !== '') {
-      if(selectedChassis.value.length < 15 || selectedChassis.value.length > 16) {
+    else if(this.selectedChassis !== '') {
+      if(this.selectedChassis.length < 15 || this.selectedChassis.length > 16) {
         this.chassisLengthError = true;
         return false;
       }

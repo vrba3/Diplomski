@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
+import com.example.demo.model.Car;
 import com.example.demo.model.User;
+import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,6 +19,10 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private CarService carService;
+    @Autowired
+    private CarRepository carRepository;
 
     public List<User> getAllUsers() {
         Iterable<User> allUsers = userRepository.findAll();
@@ -67,6 +73,11 @@ public class UserServiceImpl implements UserService{
 
     public Boolean deleteUser(User user) {
         sendEmail("Your account has been deleted!", user.getEmail());
+        List<Car> cars = carService.getAllCars();
+        for(Car c: cars) {
+            if(c.getOwnersEmail().equals(user.getEmail()))
+                carRepository.deleteById(c.getId());
+        }
         userRepository.deleteById(user.getId());
         return true;
     }
