@@ -20,7 +20,8 @@ public class User {
 
     public User() {}
 
-    public User(long id, String firstName, String lastName, String mobileNumber, String address, String country, String city, String email, String password) {
+    public User(long id, String firstName, String lastName, String mobileNumber, String address, String country,
+                String city, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

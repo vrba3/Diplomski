@@ -30,16 +30,6 @@ public class CarServiceImpl implements CarService{
     @Autowired
     private JavaMailSender mailSender;
 
-    public List<Car> getAllCars() {
-        addPictures();
-        addEquipment();
-        Iterable<Car> allCars = carRepository.findAll();
-        ArrayList<Car> allCarsList = new ArrayList<Car>();
-        allCars.forEach(allCarsList::add);
-
-        return allCarsList;
-    }
-
     public List<Car> getUserCars(String email) {
         List<Car> cars = getAllCars();
         List<Car> retCars = new ArrayList<>();
@@ -49,6 +39,16 @@ public class CarServiceImpl implements CarService{
         }
 
         return retCars;
+    }
+
+    public List<Car> getAllCars() {
+        addPictures();
+        addEquipment();
+        Iterable<Car> allCars = carRepository.findAll();
+        ArrayList<Car> allCarsList = new ArrayList<Car>();
+        allCars.forEach(allCarsList::add);
+
+        return allCarsList;
     }
 
     private void createFolder(String name) {

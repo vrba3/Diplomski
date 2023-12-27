@@ -63,7 +63,7 @@ public class CarController {
     }
 
     @PostMapping("/cars/addCar")
-    public ResponseEntity<Boolean> addCar(@RequestBody Car car, HttpServletRequest request){
+    public ResponseEntity<Boolean> addCar(@RequestBody Car car){
         if (carService.addCar(car)) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } else {

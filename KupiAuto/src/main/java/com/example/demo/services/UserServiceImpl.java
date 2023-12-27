@@ -35,12 +35,10 @@ public class UserServiceImpl implements UserService{
     public User loginUser(User user) {
         User foundUser = userRepository.findByEmailAndPassword(user.getEmail(),user.getPassword());
 
-        if (foundUser != null){
+        if (foundUser != null)
             return foundUser;
-        }
-        else{
+        else
             return null;
-        }
     }
 
     public User getLoggedUser(String email) {
