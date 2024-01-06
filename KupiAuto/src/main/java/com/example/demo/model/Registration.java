@@ -5,19 +5,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="registration")
+@Table(name="registrations")
 public class Registration {
 
     @Id
     private long id;
     private String registrationNumber;
     private String registrationExpiringDate;
-    private String carId;
+    private long carId;
     private String ownersEmail;
 
     public Registration() {}
 
-    public Registration(long id, String registrationNumber, String registrationExpiringDate, String carId, String ownersEmail) {
+    public Registration(long id, String registrationNumber, String registrationExpiringDate, long carId, String ownersEmail) {
         this.id = id;
         this.registrationNumber = registrationNumber;
         this.registrationExpiringDate = registrationExpiringDate;
@@ -49,11 +49,11 @@ public class Registration {
         this.registrationExpiringDate = registrationExpiringDate;
     }
 
-    public String getCarId() {
+    public long getCarId() {
         return carId;
     }
 
-    public void setCarId(String carId) {
+    public void setCarId(long carId) {
         this.carId = carId;
     }
 
