@@ -20,6 +20,10 @@ import { CarProfileByLoggedUserComponent } from './components/home-page/car-prof
 import { ShowRequestsForNewPostsComponent } from './components/home-page/show-requests-for-new-posts/show-requests-for-new-posts.component';
 import { AddNewCarComponent } from './components/home-page/add-new-car/add-new-car.component';
 import { CarProfileBySearchedCarsFromLoggedUsersComponent } from './components/home-page/car-profile-by-searched-cars-from-logged-users/car-profile-by-searched-cars-from-logged-users.component';
+import { RegisteredCarsByLoggedUserComponent } from './components/home-page/registered-cars-by-logged-user/registered-cars-by-logged-user.component';
+import { RegisteredCarsComponent } from './components/home-page/registered-cars/registered-cars.component';
+import { CarProfileByRegisteredCarsFromLoggedUsersComponent } from './components/home-page/car-profile-by-registered-cars-from-logged-users/car-profile-by-registered-cars-from-logged-users.component';
+import { CarProfileByRegisteredCarsComponent } from './components/home-page/car-profile-by-registered-cars/car-profile-by-registered-cars.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,10 @@ import { CarProfileBySearchedCarsFromLoggedUsersComponent } from './components/h
     ShowRequestsForNewPostsComponent,
     AddNewCarComponent,
     CarProfileBySearchedCarsFromLoggedUsersComponent,
+    RegisteredCarsByLoggedUserComponent,
+    RegisteredCarsComponent,
+    CarProfileByRegisteredCarsFromLoggedUsersComponent,
+    CarProfileByRegisteredCarsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Car } from 'src/app/model/car';
+import { Registration } from 'src/app/model/registration';
 import { User } from 'src/app/model/user';
 import { CarService } from 'src/app/services/car.service';
+import { RegistrationService } from 'src/app/services/registration.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,10 +16,12 @@ export class CarProfileBySearchedCarsFromLoggedUsersComponent implements OnInit 
   carImg: String;
   numOfImg: number;
   user: User;
+  registration: Registration = {} as Registration;
   
   @Output() searchedCarsPage = new EventEmitter<string>();
+  @Output() registeredCarsPage = new EventEmitter<string>();
 
-  constructor(private carService: CarService, private userService: UserService) { }
+  constructor(private carService: CarService, private userService: UserService, private registrationService: RegistrationService) { }
 
   ngOnInit(): void {
     this.numOfImg = 0;
@@ -25,12 +29,21 @@ export class CarProfileBySearchedCarsFromLoggedUsersComponent implements OnInit 
       this.car = ret;
       this.userService.getUserFromPost(this.car.ownersEmail).subscribe(ret => {
         this.user = ret;
+        this.registrationService.findByCarId(this.car.id).subscribe(ret => {
+          if (ret != null) 
+            this.registration = ret
+        })
       })
     })
   }
 
   backToSearchedCarsPage() {
     this.searchedCarsPage.emit();
+  }
+
+  showAllRegisteredCars() {
+    sessionStorage.setItem('ownersEmail', this.car.ownersEmail)
+    this.registeredCarsPage.emit()
   }
 
   previousImage() {

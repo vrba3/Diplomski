@@ -103,4 +103,43 @@ export class AppComponent {
     sessionStorage.setItem("page",'13');
   }
 
- }
+  backToSearchedCarsPageForLoggedUsers(): void {
+    this.changeNumber(14);
+    sessionStorage.setItem("page",'14');
+  }
+
+  showRegisteredCarsForLoggedUsers(): void {
+    this.changeNumber(15);
+    sessionStorage.setItem("page",'15');
+  }
+
+  backToRegisteredCarsPageForLoggedUsers(): void {
+    this.changeNumber(15);
+    sessionStorage.setItem("page",'15');
+  }
+
+  showCarProfileFromRegisteredCarsForLoggedUsers(): void {
+    this.changeNumber(16);
+    sessionStorage.setItem("page",'16');
+  }
+
+  backToCarPage(): void {
+    this.changeNumber(9);
+    sessionStorage.setItem("page",'9');
+  }
+
+  goToRegisteredCarPage(): void {
+    this.changeNumber(18);
+    sessionStorage.setItem("page",'18');
+  }
+
+  backToRegisteredCarsPage(): void {
+    this.changeNumber(17);
+    sessionStorage.setItem("page",'17');
+  }
+
+  goToRegisteredCarsPage(): void {
+    this.changeNumber(17);
+    sessionStorage.setItem("page",'17');
+  }
+}

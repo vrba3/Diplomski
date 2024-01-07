@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.model.Car;
+import com.example.demo.model.Registration;
 import com.example.demo.model.User;
 import com.example.demo.repository.CarRepository;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -29,6 +30,18 @@ public class CarServiceImpl implements CarService{
     private CarRepository carRepository;
     @Autowired
     private JavaMailSender mailSender;
+
+    public List<Car> getRegisteredCars(List<Registration> registrations){
+        List<Car> cars = new ArrayList<>();
+        for(Registration registration: registrations){
+            cars.add(carRepository.getById(registration.getCarId()));
+        }
+        return cars;
+    }
+
+    public Car getById(long id) {
+        return carRepository.getById(id);
+    }
 
     public List<Car> getUserCars(String email) {
         List<Car> cars = getAllCars();

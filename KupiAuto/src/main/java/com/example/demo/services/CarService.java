@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.model.Car;
+import com.example.demo.model.Registration;
 import com.example.demo.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,4 +19,6 @@ public interface CarService {
     public boolean uploadPhoto(MultipartFile image, String name) throws IOException;
     public Boolean deleteFolder(String name) throws IOException;
     public Boolean deletePhoto(MultipartFile image, String name) throws IOException;
+    Car getById(long id);
+    List<Car> getRegisteredCars(List<Registration> registrations);
 }

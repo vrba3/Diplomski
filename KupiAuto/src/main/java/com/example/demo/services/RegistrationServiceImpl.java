@@ -5,6 +5,8 @@ import com.example.demo.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RegistrationServiceImpl implements RegistrationService{
 
@@ -13,5 +15,10 @@ public class RegistrationServiceImpl implements RegistrationService{
 
     public Registration findByCarId(long carId) {
         return registrationRepository.findByCarId(carId);
+    }
+
+    public List<Registration> findByOwnersEmail(String email){
+        List<Registration> foundedReg = registrationRepository.findByOwnersEmail(email);
+        return foundedReg;
     }
 }

@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.example.demo.model.Car;
+import com.example.demo.model.Registration;
 import com.example.demo.services.CarService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class CarController {
 
@@ -28,6 +32,11 @@ public class CarController {
     @GetMapping("cars/userCars")
     public ResponseEntity<List<Car>> getUserCars(@RequestParam("email") String email) {
         return new ResponseEntity<List<Car>>(carService.getUserCars(email), HttpStatus.OK);
+    }
+
+    @GetMapping("cars/registeredCars")
+    public ResponseEntity<List<Car>> getRegisteredCars(@RequestBody List<Registration> registrations) {
+        return new ResponseEntity<>(carService.getRegisteredCars(registrations), HttpStatus.OK);
     }
 
     @GetMapping("cars/searchedCars")
@@ -74,6 +83,11 @@ public class CarController {
     @GetMapping("cars/openedCar")
     public ResponseEntity<Car> getOpenedCars(@RequestParam("id") long id) {
         return new ResponseEntity<Car>(carService.getOpenedCar(id), HttpStatus.OK);
+    }
+
+    @GetMapping("cars/getById")
+    public ResponseEntity<Car> getById(@RequestParam("id") long id) {
+        return new ResponseEntity<>(carService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping("cars/deleteCar")

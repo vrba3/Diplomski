@@ -5,7 +5,7 @@
             <span style="font-size: 30px; "><b> Kupi Auto </b></span>
         </div>
         <div class="col-2">
-            <input type="image" (click)="backToSearchedCarsPage()" style="margin-left: 800px; width: 40; height: 40px; margin-top: 20px;" src="../../../assets/images/house.png" >
+            <input type="image" (click)="backToRegisteredCarsPage()" style="margin-left: 800px; width: 40; height: 40px; margin-top: 20px;" src="../../../assets/images/house.png" >
         </div>
     </div>  
 </div>
@@ -39,9 +39,6 @@
                 </div>
                 <div class="row">
                     <label style="font-size: 20px;"> {{user.email}} </label>
-                </div>
-                <div class="row">
-                    <button class="btn btn-primary" style="margin-top: 10px;" (click)="showAllRegisteredCars()"> Vidi sve registrovane automobile od {{user.firstName}}</button>
                 </div>
             </div>
         </div>
@@ -120,18 +117,18 @@
                 <div class="col-3">
                     <label > {{car.numOfChassis}} </label>
                 </div>
-            </div>
-            <div class="row" *ngIf="registration?.registrationExpiringDate != undefined" style="margin-top: 20px; font-size: 18px; margin-bottom: 10px;">
-                <div class="col-3">
-                    <label> Registrovan do: </label>
+                <div class="row" *ngIf="registration?.registrationExpiringDate != undefined" style="margin-top: 20px; font-size: 18px; margin-bottom: 10px;">
+                    <div class="col-3">
+                        <label> Registrovan do: </label>
+                    </div>
+                    <div class="col-3">
+                        <label> {{registration.registrationExpiringDate}} </label>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <label> {{registration.registrationExpiringDate}} </label>
-                </div>
-            </div>
-            <div class="row" *ngIf="registration?.registrationExpiringDate == undefined" style="margin-top: 20px; font-size: 18px; margin-bottom: 10px;">
-                <div class="col-3">
-                    <label> Nije registrovan </label>
+                <div class="row" *ngIf="registration?.registrationExpiringDate == undefined" style="margin-top: 20px; font-size: 18px; margin-bottom: 10px;">
+                    <div class="col-3">
+                        <label> Nije registrovan </label>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,6 +2,9 @@ package com.example.demo.services;
 
 import com.example.demo.model.Registration;
 
+import java.util.List;
+
 public interface RegistrationService {
-    public Registration findByCarId(long carId);
+    Registration findByCarId(long carId);
+    List<Registration> findByOwnersEmail(String email);
 }

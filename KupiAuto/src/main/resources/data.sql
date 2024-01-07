@@ -1,5 +1,6 @@
 delete from users where id!=0;
 delete from cars where id!=0;
+delete from registrations where id!=0;
 
 insert into users (id, address, city, country, email,first_name,last_name,mobile_number,password)
 values (1, 'Veljka Petrovica 1', 'Novi Sad', 'Srbija', 'milang@gmail.com', 'Milan', 'Govedarica', 123123123, 'aaaa');

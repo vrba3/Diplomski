@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Car } from '../model/car';
 import { Observable } from 'rxjs';
+import { Registration } from '../model/registration';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ export class CarService {
   private uploadImgUrl: string;
   private deleteFolderUrl: string;
   private deletePhotoUrl: string;
+  private getByIdUrl: string;
+  private getRegisteredCarsUrl: string;
 
   constructor(private http: HttpClient) {
     this.getAllCarsUrl = 'http://localhost:8080/cars/allCars'
@@ -29,6 +32,16 @@ export class CarService {
     this.uploadImgUrl = 'http://localhost:8080/cars/uploadPhoto'
     this.deleteFolderUrl = 'http://localhost:8080/cars/deleteFolder'
     this.deletePhotoUrl = 'http://localhost:8080/cars/deletePhoto'
+    this.getByIdUrl = 'http://localhost:8080/cars/getById'
+    this.getRegisteredCarsUrl = 'http://localhost:8080/cars/registeredCars'
+  }
+
+  public getById(id: number): Observable<Car> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    let params = new HttpParams().set("id",id);
+
+    return this.http.get<Car>(this.getByIdUrl, {headers: headers, params: params});
   }
 
   public getAllCars(): Observable<Array<Car>> {

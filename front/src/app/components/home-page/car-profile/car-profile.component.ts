@@ -19,6 +19,7 @@ export class CarProfileComponent implements OnInit {
   registration: Registration = {} as Registration;
   
   @Output() searchedCarsPage = new EventEmitter<string>();
+  @Output() registeredCarsPage = new EventEmitter<string>();
 
   constructor(private carService: CarService, private userService: UserService, private registrationService: RegistrationService) { }
 
@@ -35,7 +36,11 @@ export class CarProfileComponent implements OnInit {
       })
     })
     
-    
+  }
+
+  openRegisteredCarsOfUser() {
+    sessionStorage.setItem('ownersEmail', this.car.ownersEmail)
+    this.registeredCarsPage.emit();
   }
 
   backToSearchedCarsPage() {

@@ -7,9 +7,13 @@
 <app-all-registered-users *ngIf="pageNumber === 6" (adminsPage)="goToUsersPage($event)"></app-all-registered-users>
 <app-searched-cars-page *ngIf="pageNumber === 7" (homePage)="backToHomePage()" (carProfile)="openCarProfile($event)"></app-searched-cars-page>
 <app-searched-cars-for-logged-users *ngIf="pageNumber === 8" (homePage)="goToUsersPage($event)" (carProfile)="openCarProfileByLoggedUser($event)"></app-searched-cars-for-logged-users>
-<app-car-profile *ngIf="pageNumber === 9" (searchedCarsPage)="goToSearchedCarsPage()"></app-car-profile>
+<app-car-profile *ngIf="pageNumber === 9" (searchedCarsPage)="goToSearchedCarsPage()" (registeredCarsPage)="goToRegisteredCarsPage()"></app-car-profile>
 <app-show-user-posts *ngIf="pageNumber === 10" (homePage)="goToUsersPage($event)" (carProfile)="openCarProfileFromPosts()"></app-show-user-posts>
 <app-car-profile-by-logged-user *ngIf="pageNumber === 11" (userCarsPage)="backToPosts()"></app-car-profile-by-logged-user>
 <app-show-requests-for-new-posts *ngIf="pageNumber === 12" (adminsPage)="goToUsersPage($event)"></app-show-requests-for-new-posts>
 <app-add-new-car *ngIf="pageNumber === 13" (homePage)="goToUsersPage($event)"></app-add-new-car>
-<app-car-profile-by-searched-cars-from-logged-users *ngIf="pageNumber === 14" (searchedCarsPage)="goToSearchedCarsPageForLoggedUsers()"></app-car-profile-by-searched-cars-from-logged-users>
+<app-car-profile-by-searched-cars-from-logged-users *ngIf="pageNumber === 14" (searchedCarsPage)="goToSearchedCarsPageForLoggedUsers()" (registeredCarsPage)="showRegisteredCarsForLoggedUsers()"></app-car-profile-by-searched-cars-from-logged-users>
+<app-registered-cars-by-logged-user *ngIf="pageNumber === 15" (carPage)="backToSearchedCarsPageForLoggedUsers()" (carProfile)="showCarProfileFromRegisteredCarsForLoggedUsers()"></app-registered-cars-by-logged-user>
+<app-car-profile-by-registered-cars-from-logged-users *ngIf="pageNumber === 16" (registeredCarsPage)="backToRegisteredCarsPageForLoggedUsers()"></app-car-profile-by-registered-cars-from-logged-users>
+<app-registered-cars *ngIf="pageNumber === 17" (carPage)="backToCarPage()" (carProfile)="goToRegisteredCarPage()"></app-registered-cars>
+<app-car-profile-by-registered-cars *ngIf="pageNumber === 18" (registeredCarsPage)="backToRegisteredCarsPage()"></app-car-profile-by-registered-cars>

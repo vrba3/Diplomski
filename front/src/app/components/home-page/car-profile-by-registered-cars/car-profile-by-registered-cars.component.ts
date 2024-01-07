@@ -7,29 +7,26 @@ import { RegistrationService } from 'src/app/services/registration.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-car-profile-by-logged-user',
-  templateUrl: './car-profile-by-logged-user.component.html',
-  styleUrls: ['./car-profile-by-logged-user.component.css']
+  selector: 'app-car-profile-by-registered-cars',
+  templateUrl: './car-profile-by-registered-cars.component.html',
+  styleUrls: ['./car-profile-by-registered-cars.component.css']
 })
-export class CarProfileByLoggedUserComponent implements OnInit {
+export class CarProfileByRegisteredCarsComponent implements OnInit {
+
   car: Car;
   carImg: String;
   numOfImg: number;
   user: User;
-  changePressed: Boolean = false;
-  helpPrice: number;
-  showError: Boolean = false;
   registration: Registration = {} as Registration;
-
-  @Output() userCarsPage = new EventEmitter<string>();
+  
+  @Output() registeredCarsPage = new EventEmitter<string>();
 
   constructor(private carService: CarService, private userService: UserService, private registrationService: RegistrationService) { }
 
   ngOnInit(): void {
     this.numOfImg = 0;
-    this.carService.getOpenedCarFromPosts().subscribe(ret => {
+    this.carService.getOpenedCar().subscribe(ret => {
       this.car = ret;
-      this.helpPrice = this.car.price;
       this.userService.getUserFromPost(this.car.ownersEmail).subscribe(ret => {
         this.user = ret;
         this.registrationService.findByCarId(this.car.id).subscribe(ret => {
@@ -38,35 +35,12 @@ export class CarProfileByLoggedUserComponent implements OnInit {
         })
       })
     })
+    
+    
   }
 
-  changeButtonPressed() {
-    this.changePressed = true;
-  }
-
-  changePrice() {
-    if(this.helpPrice === this.car.price){
-      this.showError = true
-      return;
-    }
-    this.showError = false
-    this.car.price = this.helpPrice
-    this.carService.editCar(this.car).subscribe(ret => {
-      if(ret) {
-        this.changePressed = false;
-        
-      }
-
-    })
-  }
-
-  cancelPressed() {
-    this.helpPrice = this.car.price;
-    this.changePressed = false;
-  }
-
-  backToUserCarsPage() {
-    this.userCarsPage.emit();
+  backToRegisteredCarsPage() {
+    this.registeredCarsPage.emit();
   }
 
   previousImage() {
