@@ -72,12 +72,8 @@ public class CarController {
     }
 
     @PostMapping("/cars/addCar")
-    public ResponseEntity<Boolean> addCar(@RequestBody Car car){
-        if (carService.addCar(car)) {
-            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
-        }
+    public ResponseEntity<Car> addCar(@RequestBody Car car){
+        return new ResponseEntity<>(carService.addCar(car), HttpStatus.OK);
     }
 
     @GetMapping("cars/openedCar")

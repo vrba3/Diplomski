@@ -15,7 +15,7 @@ public interface CarService {
     public List<Car> getUserCars(String email);
     public Boolean deleteCar(Car car);
     public Boolean editCar(Car car);
-    public Boolean addCar(Car car);
+    public Car addCar(Car car);
     public boolean uploadPhoto(MultipartFile image, String name) throws IOException;
     public Boolean deleteFolder(String name) throws IOException;
     public Boolean deletePhoto(MultipartFile image, String name) throws IOException;

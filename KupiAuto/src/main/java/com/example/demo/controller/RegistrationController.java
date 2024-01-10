@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,15 @@ public class RegistrationController {
     @GetMapping("registrations/getByOwnersEmail")
     public ResponseEntity<List<Registration>> getByOwnersEmail(@RequestParam("email") String email) {
         return new ResponseEntity<>(registrationService.findByOwnersEmail(email), HttpStatus.OK);
+    }
+
+    @PostMapping("/registrations/saveReg")
+    public ResponseEntity<Registration> addRegistration(@RequestBody Registration registration){
+        return new ResponseEntity<>(registrationService.save(registration), HttpStatus.OK);
+    }
+
+    @GetMapping("/registrations/getAll")
+    public ResponseEntity<List<Registration>> getAll() {
+        return new ResponseEntity<>(registrationService.getAll(), HttpStatus.OK);
     }
 }

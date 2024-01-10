@@ -170,11 +170,10 @@ public class CarServiceImpl implements CarService{
         }
     }
 
-    public Boolean addCar(Car car) {
-        sendEmail("Post for your car has been sent to administrator on authorization!", car.getOwnersEmail());
+    public Car addCar(Car car) {
+        //sendEmail("Post for your car has been sent to administrator on authorization!", car.getOwnersEmail());
         car.setApproved(false);
-        carRepository.save(car);
-        return true;
+        return carRepository.save(car);
     }
 
     private void addPictures() {

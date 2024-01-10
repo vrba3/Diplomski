@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Car } from 'src/app/model/car';
+import { Registration } from 'src/app/model/registration';
 import { User } from 'src/app/model/user';
 import { CarService } from 'src/app/services/car.service';
+import { RegistrationService } from 'src/app/services/registration.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -39,10 +41,14 @@ export class AddNewCarComponent implements OnInit {
   priceError: Boolean = false;
   newId: number = 1;
   photoError: Boolean = false;
+  registered: Boolean = false;
+  isntRegistered: Boolean = true;
+  registration: Registration = {} as Registration;
+  newIdForReg: number = 1;
 
   @Output() homePage = new EventEmitter<string>();
 
-  constructor(private carService: CarService, private userService: UserService) { }
+  constructor(private carService: CarService, private userService: UserService, private registrationService: RegistrationService) { }
 
   ngOnInit(): void {
     this.userService.getLoggedUser().subscribe(ret => {
@@ -51,6 +57,17 @@ export class AddNewCarComponent implements OnInit {
     let model = document.getElementById('model') as HTMLSelectElement;
     model.disabled = true;
     this.generateId();
+    this.generateIdForReg();
+  }
+
+  isntRegisteredPressed() {
+    this.isntRegistered = true;
+    this.registered = false;
+  }
+
+  registeredPressed(){
+    this.isntRegistered = false;
+    this.registered = true;
   }
 
   goBackToHomePage() {    
@@ -472,13 +489,25 @@ export class AddNewCarComponent implements OnInit {
       
       car.ownersEmail = this.user.email;
       this.carService.addCar(car).subscribe(ret => {
-        if(ret) {
-          if(this.user.email === 'vrbica.vlado11@gmail.com')
-            this.homePage.emit('administrator');
-          else
-            this.homePage.emit('user');
+        if(this.registered){
+          let expDate = document.getElementById('expDate') as HTMLInputElement;
+          let regNumber = document.getElementById('regNum') as HTMLInputElement;
+          this.registration.registrationExpiringDate = expDate.value
+          this.registration.registrationNumber = regNumber.value
+          this.registration.id = this.newIdForReg
+          this.registration.carId = ret.id
+          this.registration.ownersEmail = this.user.email
+          this.registrationService.saveReg(this.registration).subscribe(ret => {
+            if(this.user.email === 'vrbica.vlado11@gmail.com')
+              this.homePage.emit('administrator');
+            else
+              this.homePage.emit('user');
+          })
         }
-
+        if(this.user.email === 'vrbica.vlado11@gmail.com')
+          this.homePage.emit('administrator');
+        else
+          this.homePage.emit('user');
       })
     }
   }
@@ -542,6 +571,17 @@ export class AddNewCarComponent implements OnInit {
           id = car.id
       }
       this.newId = id+1;
+    })
+  }
+
+  generateIdForReg() {
+    let id=1
+    this.registrationService.getAll().subscribe(ret => {
+      for(let reg of ret){
+        if(reg.id > id)
+          id = reg.id
+      }
+      this.newIdForReg = id+1;
     })
   }
 }

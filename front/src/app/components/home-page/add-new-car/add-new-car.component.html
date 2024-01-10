@@ -198,6 +198,37 @@
             </div>
         </div>
     </div>
+    <div class="row" style="margin-top: 40px;"> 
+        <div class="col-1" style="margin-left: 110px;"></div>
+        <div class="col-2">
+            <input type="radio" id="noreg" name="fav_language" value="Nije registrovan" [(ngModel)]="isntRegistered" (change)="isntRegisteredPressed()" [value]="true">
+            <label for="noreg" style="margin-left: 5px;" >Nije registrovan</label><br>
+        </div>
+        <div class="col-1">
+            <input type="radio" id="reg" name="fav_language" value="Registrovan" [(ngModel)]="registered" (change)="registeredPressed()">
+            <label for="reg" style="margin-left: 5px;">Registrovan</label><br>
+        </div>
+    </div>
+    <div *ngIf="registered === true">
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-1" style="margin-left: 110px;"></div>
+            <div class="col-1">
+                <label>Registrovan do:</label>
+            </div>
+            <div class="col-1">
+                <input id="expDate">
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-1" style="margin-left: 110px;"></div>
+            <div class="col-1">
+                <label>Registracioni broj:</label>
+            </div>
+            <div class="col-1">
+                <input id="regNum">
+            </div>
+        </div>
+    </div>
     <div class="row" style="margin-top: 80px;"> 
         <div class="col-4">
             <div>
