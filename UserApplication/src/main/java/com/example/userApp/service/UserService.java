@@ -56,7 +56,15 @@ public class UserService implements IUserService{
         User foundUser = userRepository.findByEmail(user.getEmail());
 
         if(foundUser != null) {
-            userRepository.save(user);
+            foundUser.setFirstName(user.getFirstName());
+            foundUser.setLastName(user.getLastName());
+            foundUser.setAddress(user.getAddress());
+            foundUser.setCity(user.getCity());
+            foundUser.setCountry(user.getCountry());
+            foundUser.setEmail(user.getEmail());
+            foundUser.setMobileNumber(user.getMobileNumber());
+            foundUser.setPassword(user.getPassword());
+            userRepository.save(foundUser);
             return true;
         } else {
             return false;

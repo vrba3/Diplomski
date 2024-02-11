@@ -1,11 +1,8 @@
 package com.example.gateway.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -22,4 +19,34 @@ public class ApiGatewayController {
         return restTemplate.getForEntity(userServiceUrl + "/users/allUsers", Object.class);
     }
 
+    @PostMapping("/gateway/users/login")
+    public ResponseEntity<?> login(@RequestBody Object requestData) {
+        return restTemplate.postForEntity(userServiceUrl + "/users/login", requestData, Object.class);
+    }
+
+    @GetMapping("/gateway/users/getLoggedUser")
+    public ResponseEntity<?> getLoggedUser(@RequestParam("email") String email) {
+        return restTemplate.getForEntity(userServiceUrl + "/users/getLoggedUser?email={email}", Object.class, email);
+    }
+
+    @GetMapping("/gateway/users/userFromPost")
+    public ResponseEntity<?> getUserFromPost(@RequestParam("email") String email) {
+        return restTemplate.getForEntity(userServiceUrl + "/users/userFromPost?email={email}", Object.class, email);
+    }
+
+    @PostMapping("/gateway/users/registerUser")
+    public ResponseEntity<?> saveUser(@RequestBody Object requestBody) {
+        return restTemplate.postForEntity(userServiceUrl + "/users/registerUser", requestBody, Object.class);
+    }
+
+    @PutMapping("/gateway/users/editUser")
+    public ResponseEntity<?> editUser(@RequestBody Object requestBody) {
+        restTemplate.put(userServiceUrl + "/users/editUser", requestBody);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/gateway/users/deleteUser")
+    public ResponseEntity<?> deleteUser(@RequestBody Object requestBody){
+        return restTemplate.postForEntity(userServiceUrl + "/users/deleteUser", requestBody, Object.class);
+    }
 }

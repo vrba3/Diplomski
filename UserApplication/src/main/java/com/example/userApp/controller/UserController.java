@@ -37,27 +37,27 @@ public class UserController {
     }
 
     @PostMapping("/users/registerUser")
-    public ResponseEntity<String> saveUser(@RequestBody User user) {
+    public ResponseEntity<Boolean> saveUser(@RequestBody User user) {
 
         if(!userService.saveUser(user)){
-            return new ResponseEntity<String>("user_exists",HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(false,HttpStatus.NOT_ACCEPTABLE);
         }
         else{
-            return new ResponseEntity<String>("user_registered",HttpStatus.CREATED);
+            return new ResponseEntity<>(true,HttpStatus.CREATED);
         }
     }
 
     @PutMapping("/users/editUser")
     public ResponseEntity<Boolean> editUser(@RequestBody User user) {
         if (userService.editUser(user)) {
-            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
-            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(false, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
     @PostMapping("/users/deleteUser")
     public ResponseEntity<Boolean> deleteUser(@RequestBody User user){
-        return new ResponseEntity<Boolean>(userService.deleteUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(userService.deleteUser(user), HttpStatus.OK);
     }
 }
