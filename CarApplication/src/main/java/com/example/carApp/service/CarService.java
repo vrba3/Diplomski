@@ -1,39 +1,30 @@
-package com.example.demo.services;
+package com.example.carApp.service;
 
-import com.example.demo.model.Car;
-import com.example.demo.model.Registration;
-import com.example.demo.repository.CarRepository;
+import com.example.carApp.model.Car;
+import com.example.carApp.repository.CarRepository;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class CarServiceImpl implements CarService{
+public class CarService implements ICarService{
 
     @Autowired
     private CarRepository carRepository;
-    @Autowired
-    private JavaMailSender mailSender;
 
-    public List<Car> getRegisteredCars(List<Registration> registrations){
+    public List<Car> getRegisteredCars(List<Long> registeredCarIDs) {
         List<Car> cars = new ArrayList<>();
-        for(Registration registration: registrations){
-            cars.add(carRepository.getById(registration.getCarId()));
+        for(Long id: registeredCarIDs){
+            cars.add(carRepository.getById(id));
         }
         return cars;
     }
@@ -256,7 +247,7 @@ public class CarServiceImpl implements CarService{
     }
 
     public Boolean deleteCar(Car car) {
-        sendEmail("Post for your car has been deleted by administrator!", car.getOwnersEmail());
+        //sendEmail("Post for your car has been deleted by administrator!", car.getOwnersEmail());
         carRepository.deleteById(car.getId());
         return true;
     }
@@ -438,11 +429,11 @@ public class CarServiceImpl implements CarService{
         return retCars;
     }
 
-    private void sendEmail(String message, String userEmail) {
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(userEmail);
-        mail.setFrom("vrbica.vlado11@gmail.com");
-        mail.setText(message);
-        mailSender.send(mail);
-    }
+//    private void sendEmail(String message, String userEmail) {
+//        SimpleMailMessage mail = new SimpleMailMessage();
+//        mail.setTo(userEmail);
+//        mail.setFrom("vrbica.vlado11@gmail.com");
+//        mail.setText(message);
+//        mailSender.send(mail);
+//    }
 }

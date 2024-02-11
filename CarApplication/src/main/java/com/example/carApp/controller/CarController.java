@@ -1,19 +1,13 @@
-package com.example.demo.controller;
+package com.example.carApp.controller;
 
-import com.example.demo.model.Car;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import com.example.demo.model.Registration;
-import com.example.demo.services.CarService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.carApp.model.Car;
+import com.example.carApp.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,8 +29,8 @@ public class CarController {
     }
 
     @GetMapping("cars/registeredCars")
-    public ResponseEntity<List<Car>> getRegisteredCars(@RequestBody List<Registration> registrations) {
-        return new ResponseEntity<>(carService.getRegisteredCars(registrations), HttpStatus.OK);
+    public ResponseEntity<List<Car>> getRegisteredCars(@RequestBody List<Long> registeredCarIDs) {
+        return new ResponseEntity<>(carService.getRegisteredCars(registeredCarIDs), HttpStatus.OK);
     }
 
     @GetMapping("cars/searchedCars")
@@ -54,7 +48,7 @@ public class CarController {
     }
 
     @PostMapping("/cars/deleteFolder")
-    public ResponseEntity<Boolean> deleteFolder(@RequestBody Car car, HttpServletRequest request) throws IOException {
+    public ResponseEntity<Boolean> deleteFolder(@RequestBody Car car) throws IOException {
         if (carService.deleteFolder(Long.toString(car.getId()))) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } else {
@@ -92,7 +86,7 @@ public class CarController {
     }
 
     @PutMapping("/cars/editCar")
-    public ResponseEntity<Boolean> editCar(@RequestBody Car car, HttpServletRequest request) {
+    public ResponseEntity<Boolean> editCar(@RequestBody Car car) {
         if (carService.editCar(car)) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } else {
