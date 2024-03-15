@@ -18,22 +18,22 @@ public class UserController {
 
     @GetMapping("users/allUsers")
     public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @PostMapping("/users/login")
     public ResponseEntity<User> login(@RequestBody User user) {
-        return new ResponseEntity<User>( userService.loginUser(user), HttpStatus.OK);
+        return new ResponseEntity<>( userService.loginUser(user), HttpStatus.OK);
     }
 
     @GetMapping("/users/getLoggedUser")
     public ResponseEntity<User> getLoggedUser(@RequestParam("email") String email) {
-        return new ResponseEntity<User>(userService.getLoggedUser(email), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getLoggedUser(email), HttpStatus.OK);
     }
 
     @GetMapping("/users/userFromPost")
     public ResponseEntity<User> getUserFromPost(@RequestParam("email") String email) {
-        return new ResponseEntity<User>(userService.getLoggedUser(email), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getLoggedUser(email), HttpStatus.OK);
     }
 
     @PostMapping("/users/registerUser")
