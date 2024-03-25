@@ -28,7 +28,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/registrations/saveReg")
-    public ResponseEntity<Registration> addRegistration(@RequestBody Registration registration){
+    public ResponseEntity<Registration> addRegistration(@RequestBody String request){
+        String registrationContent = request.substring(1, request.length()-1);
+        String[] partsOfContent = registrationContent.split(",");
+        Registration registration = new Registration(
+                Long.parseLong(partsOfContent[0].split("=")[1]),
+                partsOfContent[1].split("=")[1],
+                partsOfContent[2].split("=")[1],
+                Long.parseLong(partsOfContent[3].split("=")[1]),
+                partsOfContent[4].split("=")[1]
+        );
         return new ResponseEntity<>(registrationService.save(registration), HttpStatus.OK);
     }
 

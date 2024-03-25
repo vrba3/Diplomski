@@ -16,13 +16,13 @@ export class UserService {
   private getUserFromPostUrl: string;
 
   constructor(private http: HttpClient) {
-    this.loginUserUrl = 'http://localhost:8080/users/login';
-    this.getLoggedUserUrl = 'http://localhost:8080/users/getLoggedUser';
-    this.registerUserUrl = 'http://localhost:8080/users/registerUser';
-    this.editUserUrl = 'http://localhost:8080/users/editUser';
-    this.getAllUsersUrl = 'http://localhost:8080/users/allUsers';
-    this.deleteUserUrl = 'http://localhost:8080/users/deleteUser';
-    this.getUserFromPostUrl = 'http://localhost:8080/users/userFromPost';
+    this.loginUserUrl = 'http://localhost:8080/gateway/users/login';
+    this.getLoggedUserUrl = 'http://localhost:8080/gateway/users/getLoggedUser';
+    this.registerUserUrl = 'http://localhost:8080/gateway/users/registerUser';
+    this.editUserUrl = 'http://localhost:8080/gateway/users/editUser';
+    this.getAllUsersUrl = 'http://localhost:8080/gateway/users';
+    this.deleteUserUrl = 'http://localhost:8080/gateway/users/deleteUser';
+    this.getUserFromPostUrl = 'http://localhost:8080/gateway/users/userFromPost';
   }
 
   public getAllUsers(): Observable<Array<User>> {

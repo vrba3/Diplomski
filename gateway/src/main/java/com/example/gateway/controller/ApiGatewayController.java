@@ -1,5 +1,7 @@
 package com.example.gateway.controller;
 
+import com.example.gateway.activemq.ActiveMQMessageReceiver;
+import com.example.gateway.activemq.ActiveMQMessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -9,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,6 +19,13 @@ public class ApiGatewayController {
 
     private final String userServiceUrl = "http://localhost:8081";
     private final String carServiceUrl = "http://localhost:8082";
+    private final ActiveMQMessageSender sender;
+    private final ActiveMQMessageReceiver receiver;
+
+    public ApiGatewayController(ActiveMQMessageSender sender, ActiveMQMessageReceiver receiver) {
+        this.sender = sender;
+        this.receiver = receiver;
+    }
 
     @Autowired
     private RestTemplate restTemplate;
@@ -72,8 +82,8 @@ public class ApiGatewayController {
     }
 
     @GetMapping("/gateway/cars/searchedCars")
-    public ResponseEntity<?> getSearchedCars(@RequestParam("email") String email) {
-        return restTemplate.getForEntity(carServiceUrl + "/cars/searchedCars?email={email}", Object.class, email);
+    public ResponseEntity<?> getSearchedCars(@RequestParam("text") String text) {
+        return restTemplate.getForEntity(carServiceUrl + "/cars/searchedCars?text={text}", Object.class, text);
     }
 
     @PostMapping("/gateway/cars/uploadPhoto")
@@ -140,7 +150,7 @@ public class ApiGatewayController {
 
     @GetMapping("/gateway/cars/openedCar")
     public ResponseEntity<?> getOpenedCars(@RequestParam("id") long id) {
-        return restTemplate.getForEntity(carServiceUrl + "/cars/searchedCars?id={id}", Object.class, id);
+        return restTemplate.getForEntity(carServiceUrl + "/cars/openedCar?id={id}", Object.class, id);
     }
 
     @GetMapping("/gateway/cars/getById")
@@ -157,5 +167,53 @@ public class ApiGatewayController {
     public ResponseEntity<?> editCar(@RequestBody Object requestBody) {
         restTemplate.put(carServiceUrl + "/cars/editCar", requestBody);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/gateway/registrations")
+    public ResponseEntity<?> getAllRegistrations() {
+        try{
+            sender.sendMessage("AllRegistrations");
+            Thread.sleep(1000);
+            List<?> registrations = receiver.getRegistrations();
+            return new ResponseEntity<>(registrations, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error at sending message: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/gateway/registrations/getById")
+    public ResponseEntity<?> getRegistrationByCarsId(@RequestParam("id") long id) {
+        try{
+            sender.sendMessage("getByCarsId?id=" + id);
+            Thread.sleep(1000);
+            Object registration = receiver.getRegistration();
+            return new ResponseEntity<>(registration, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error at sending message: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/gateway/registrations/getByOwnersEmail")
+    public ResponseEntity<?> getRegistrationByOwnersEmail(@RequestParam("email") String email) {
+        try{
+            sender.sendMessage("getByEmail?email=" + email);
+            Thread.sleep(1000);
+            List<?> registrations = receiver.getRegistrations();
+            return new ResponseEntity<>(registrations, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error at sending message: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/gateway/registrations/saveRegistration")
+    public ResponseEntity<?> saveRegistration(@RequestBody Object requestBody) {
+        try{
+            sender.sendMessage("saveReg/" + requestBody.toString());
+            Thread.sleep(2000);
+            Object registration = receiver.getRegistration();
+            return new ResponseEntity<>(registration, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error at sending message: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

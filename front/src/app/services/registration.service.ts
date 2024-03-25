@@ -13,10 +13,10 @@ export class RegistrationService {
   saveUrl: string;
 
   constructor(private http: HttpClient) { 
-    this.findByCarIdUrl = 'http://localhost:8080/registrations/getByCarId';
-    this.findByOwnersEmailUrl = 'http://localhost:8080/registrations/getByOwnersEmail';
-    this.getAllUrl = 'http://localhost:8080/registrations/getAll'
-    this.saveUrl = 'http://localhost:8080/registrations/saveReg'
+    this.findByCarIdUrl = 'http://localhost:8080/gateway/registrations/getByCarId';
+    this.findByOwnersEmailUrl = 'http://localhost:8080/gateway/registrations/getByOwnersEmail';
+    this.getAllUrl = 'http://localhost:8080/gateway/registrations/getAll';
+    this.saveUrl = 'http://localhost:8080/gateway/registrations/saveReg';
   }
 
   public findByCarId(carId: number): Observable<Registration> {

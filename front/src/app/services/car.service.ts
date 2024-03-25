@@ -19,21 +19,19 @@ export class CarService {
   private deleteFolderUrl: string;
   private deletePhotoUrl: string;
   private getByIdUrl: string;
-  private getRegisteredCarsUrl: string;
 
   constructor(private http: HttpClient) {
-    this.getAllCarsUrl = 'http://localhost:8080/cars/allCars'
-    this.getSearchedCarsUrl = 'http://localhost:8080/cars/searchedCars'
-    this.getOpenedCarUrl = 'http://localhost:8080/cars/openedCar'
-    this.getUserCarsUrl = 'http://localhost:8080/cars/userCars'
-    this.deleteCarUrl = 'http://localhost:8080/cars/deleteCar'
-    this.editCarUrl = 'http://localhost:8080/cars/editCar'
-    this.addCarUrl = 'http://localhost:8080/cars/addCar'
-    this.uploadImgUrl = 'http://localhost:8080/cars/uploadPhoto'
-    this.deleteFolderUrl = 'http://localhost:8080/cars/deleteFolder'
-    this.deletePhotoUrl = 'http://localhost:8080/cars/deletePhoto'
-    this.getByIdUrl = 'http://localhost:8080/cars/getById'
-    this.getRegisteredCarsUrl = 'http://localhost:8080/cars/registeredCars'
+    this.getAllCarsUrl = 'http://localhost:8080/gateway/cars'
+    this.getSearchedCarsUrl = 'http://localhost:8080/gateway/cars/searchedCars'
+    this.getOpenedCarUrl = 'http://localhost:8080/gateway/cars/openedCar'
+    this.getUserCarsUrl = 'http://localhost:8080/gateway/cars/userCars'
+    this.deleteCarUrl = 'http://localhost:8080/gateway/cars/deleteCar'
+    this.editCarUrl = 'http://localhost:8080/gateway/cars/editCar'
+    this.addCarUrl = 'http://localhost:8080/gateway/cars/addCar'
+    this.uploadImgUrl = 'http://localhost:8080/gateway/cars/uploadPhoto'
+    this.deleteFolderUrl = 'http://localhost:8080/gateway/cars/deleteFolder'
+    this.deletePhotoUrl = 'http://localhost:8080/gateway/cars/deletePhoto'
+    this.getByIdUrl = 'http://localhost:8080/gateway/cars/getById'
   }
 
   public getById(id: number): Observable<Car> {
