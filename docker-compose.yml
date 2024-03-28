@@ -1,0 +1,123 @@
+version: "3.9"
+
+services:
+  db1:
+    container_name: pg_container1
+    image: postgres
+    restart: always
+    volumes:
+      - my-app-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: jdbc:postgresql://localhost:5432/user-service
+    ports:
+      - 5051:5432
+
+  db2:
+    container_name: pg_container2
+    image: postgres
+    restart: always
+    volumes:
+      - my-app-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: jdbc:postgresql://localhost:5432/car-service
+    ports:
+      - 5052:5432
+
+  db3:
+    container_name: pg_container3
+    image: postgres
+    restart: always
+    volumes:
+      - my-app-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: jdbc:postgresql://localhost:5432/reg-service
+    ports:
+      - 5053:5432
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+  
+  activemq:
+    container_name: activemq_container
+    image: webcenter/activemq:latest
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+    environment:
+      - ACTIVEMQ_NAME=activemq
+      - ACTIVEMQ_USERNAME=admin
+      - ACTIVEMQ_PASSWORD=admin
+  
+  gateway:
+    container_name: gateway-service
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - activemq
+
+  car_application:
+    container_name: car-application
+    build:
+      context: CarApplication
+      dockerfile: Dockerfile
+    environment:
+      - DB_URL=jdbc:postgresql://db2:5432/car-service
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    ports:
+      - "8082:8082"
+    depends_on:
+      db2:
+        condition: service_started
+        restart: true
+
+  user_application:
+    container_name: user-application
+    build:
+      context: UserApplication
+      dockerfile: Dockerfile
+    environment:
+      - DB_URL=jdbc:postgresql://db1:5432/user-service
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    ports:
+      - "8081:8081"
+    depends_on:
+      db1:
+        condition: service_started
+        restart: true
+
+  reg_application:
+    container_name: reg-application
+    build:
+      context: RegApplication
+      dockerfile: Dockerfile
+    environment:
+      - DB_URL=jdbc:postgresql://db3:5432/reg-service
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    ports:
+      - "8083:8083"
+    depends_on:
+      db3:
+        condition: service_started
+        restart: true
+
+volumes:
+  my-app-data:
