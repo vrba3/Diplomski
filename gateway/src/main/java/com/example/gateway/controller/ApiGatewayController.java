@@ -17,8 +17,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ApiGatewayController {
 
-    private final String userServiceUrl = "http://localhost:8081";
-    private final String carServiceUrl = "http://localhost:8082";
+    private final String userServiceUrl = "http://user:8081";
+    private final String carServiceUrl = "http://car:8082";
     private final ActiveMQMessageSender sender;
     private final ActiveMQMessageReceiver receiver;
 

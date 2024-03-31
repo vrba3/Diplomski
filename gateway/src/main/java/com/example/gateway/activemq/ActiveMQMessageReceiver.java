@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 public class ActiveMQMessageReceiver {
-    private final String registrationServiceUrl = "http://localhost:8083";
+    private final String registrationServiceUrl = "http://reg:8083";
     private List<Object> registrations;
     private Object registration;
     @Autowired
