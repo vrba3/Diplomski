@@ -1,7 +1,11 @@
 package com.example.carApp.controller;
 
+import com.example.carApp.dto.StripeChargeDTO;
 import com.example.carApp.model.Car;
 import com.example.carApp.service.CarService;
+import com.example.carApp.service.StripeService;
+import com.stripe.exception.StripeException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +17,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class CarController {
 
     @Autowired
     private CarService carService;
+
+    private final StripeService stripeService;
 
     @GetMapping("cars/allCars")
     public ResponseEntity<List<Car>> getAllCars() {
@@ -92,5 +99,10 @@ public class CarController {
         } else {
             return new ResponseEntity<>(false, HttpStatus.NOT_ACCEPTABLE);
         }
+    }
+
+    @PostMapping("stripe/charge")
+    public StripeChargeDTO charge(@RequestBody StripeChargeDTO model) throws StripeException {
+        return stripeService.chargePayment(model);
     }
 }

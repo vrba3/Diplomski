@@ -43,6 +43,11 @@ export class AppComponent {
     }
   }
 
+  goToStripePaying(): void{
+    this.changeNumber(19);
+    sessionStorage.setItem("page",'19');
+  }
+
   goToRegisterPage(): void {
     this.changeNumber(3);
     sessionStorage.setItem("page",'3');

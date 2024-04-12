@@ -24,6 +24,7 @@ import { RegisteredCarsByLoggedUserComponent } from './components/home-page/regi
 import { RegisteredCarsComponent } from './components/home-page/registered-cars/registered-cars.component';
 import { CarProfileByRegisteredCarsFromLoggedUsersComponent } from './components/home-page/car-profile-by-registered-cars-from-logged-users/car-profile-by-registered-cars-from-logged-users.component';
 import { CarProfileByRegisteredCarsComponent } from './components/home-page/car-profile-by-registered-cars/car-profile-by-registered-cars.component';
+import { StripeComponent } from './components/stripe/stripe.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CarProfileByRegisteredCarsComponent } from './components/home-page/car-
     RegisteredCarsComponent,
     CarProfileByRegisteredCarsFromLoggedUsersComponent,
     CarProfileByRegisteredCarsComponent,
+    StripeComponent,
   ],
   imports: [
     BrowserModule,

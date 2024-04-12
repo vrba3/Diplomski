@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Car } from '../model/car';
 import { Observable } from 'rxjs';
-import { Registration } from '../model/registration';
 
 @Injectable({
   providedIn: 'root'
