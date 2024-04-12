@@ -6,11 +6,11 @@ services:
     image: postgres
     restart: always
     volumes:
-      - my-app-data:/var/lib/postgresql/data
+      - my-app-data1:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: jdbc:postgresql://localhost:5432/user-service
+      POSTGRES_DB: user-service
     ports:
       - 5051:5432
 
@@ -19,11 +19,11 @@ services:
     image: postgres
     restart: always
     volumes:
-      - my-app-data:/var/lib/postgresql/data
+      - my-app-data2:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: jdbc:postgresql://localhost:5432/car-service
+      POSTGRES_DB: car-service
     ports:
       - 5052:5432
 
@@ -32,11 +32,11 @@ services:
     image: postgres
     restart: always
     volumes:
-      - my-app-data:/var/lib/postgresql/data
+      - my-app-data3:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: jdbc:postgresql://localhost:5432/reg-service
+      POSTGRES_DB: reg-service
     ports:
       - 5053:5432
 
@@ -71,8 +71,8 @@ services:
     depends_on:
       - activemq
 
-  car_application:
-    container_name: car-application
+  car:
+    container_name: car
     build:
       context: CarApplication
       dockerfile: Dockerfile
@@ -87,8 +87,8 @@ services:
         condition: service_started
         restart: true
 
-  user_application:
-    container_name: user-application
+  user:
+    container_name: user
     build:
       context: UserApplication
       dockerfile: Dockerfile
@@ -103,8 +103,8 @@ services:
         condition: service_started
         restart: true
 
-  reg_application:
-    container_name: reg-application
+  reg:
+    container_name: reg
     build:
       context: RegApplication
       dockerfile: Dockerfile
@@ -120,4 +120,6 @@ services:
         restart: true
 
 volumes:
-  my-app-data:
+  my-app-data1:
+  my-app-data2:
+  my-app-data3:
